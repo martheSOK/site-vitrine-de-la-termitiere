@@ -44,6 +44,7 @@ const SECTORS = {
     videosDir: "images/salle-de-sport/videos/",
     whatsapp: "22896094949",
     email: "latermitiere2021@gmail.com",
+    processPhoto: "images/watermarks/gym-inscription.jpg",
     procedure: [
       { title: "Inscription & fiche de santé", desc: "Remplissez notre fiche d'inscription et le questionnaire médical d'aptitude sportive à l'accueil." },
       { title: "Choix de la formule", desc: "Sélectionnez l'abonnement qui vous correspond (mensuel, bihebdomadaire ou séance à l'unité, avec ou sans machines)." },
@@ -197,6 +198,7 @@ const SECTORS = {
     videosDir: "images/maxi-agro/videos/",
     whatsapp: "22896094949",
     email: "latermitiere2021@gmail.com",
+    processPhoto: "images/watermarks/agro-inscription.jpg",
     procedure: [
       { title: "Sélection des produits", desc: "Consultez notre secrétariat commercial pour connaître les disponibilités des races ou des œufs." },
       { title: "Devis et conditions", desc: "Nous calculons la facture selon les quantités souhaitées (remises professionnelles pour commandes régulières)." },

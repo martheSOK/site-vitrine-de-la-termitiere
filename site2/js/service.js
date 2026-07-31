@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (s.procedure && s.procedure.length) {
     mainHtml += `<h2 class="sector-section-title">Comment ça marche</h2><div class="timeline-wrap">`;
+    if (s.processPhoto) mainHtml += `<div class="timeline-watermark" style="background-image:url('${s.processPhoto}');" aria-hidden="true"></div>`;
     mainHtml += `<div class="timeline">`;
     s.procedure.forEach((step, i) => {
       mainHtml += `
