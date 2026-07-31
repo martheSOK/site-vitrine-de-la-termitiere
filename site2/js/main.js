@@ -194,6 +194,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const video = document.createElement('video');
         video.src = src;
         video.controls = true;
+        video.controlsList = 'nodownload';
+        video.disablePictureInPicture = true;
         video.autoplay = true;
         video.playsInline = true;
         lightboxContent.appendChild(video);
@@ -201,6 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const img = document.createElement('img');
         img.src = src;
         img.alt = '';
+        img.draggable = false;
         lightboxContent.appendChild(img);
       }
       lightbox.classList.add('open');
@@ -220,5 +223,13 @@ document.addEventListener('DOMContentLoaded', () => {
     lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
   }
+
+  /* ---------- Protection basique des médias (dissuasion, pas un blocage absolu) ---------- */
+  document.addEventListener('contextmenu', (e) => {
+    if (e.target.closest('img, video')) e.preventDefault();
+  });
+  document.addEventListener('dragstart', (e) => {
+    if (e.target.closest('img, video')) e.preventDefault();
+  });
 
 });

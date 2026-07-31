@@ -1,0 +1,75 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+locale: "fr"
+
+collections:
+  - name: "promotions"
+    label: "Promotions"
+    files:
+      - name: "promotions"
+        label: "Liste des promotions"
+        file: "data/promotions.json"
+        fields:
+          - label: "Promotions"
+            name: "items"
+            widget: "list"
+            label_singular: "Promotion"
+            summary: "{{title}}"
+            fields:
+              - { label: "Titre", name: "title", widget: "string" }
+              - label: "Secteur concerné"
+                name: "sector"
+                widget: "select"
+                required: false
+                options:
+                  - { label: "Maxi Gym", value: "sport" }
+                  - { label: "La Briqueterie", value: "briqueterie" }
+                  - { label: "La Garderie", value: "garderie" }
+                  - { label: "Maxi Agro", value: "agro" }
+                  - { label: "Maxi Bâtiment", value: "batiment" }
+                  - { label: "Maxi Logistique", value: "logistique" }
+                  - { label: "E-Foncier", value: "efoncier" }
+                  - { label: "Maxi Cosmétique", value: "cosmetique" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Valable jusqu'au", name: "validUntil", widget: "string", required: false, hint: "Exemple : 31 août 2026" }
+              - { label: "Photo / affiche", name: "photo", widget: "image", required: false }
+
+  - name: "offres"
+    label: "Offres d'emploi & stages"
+    files:
+      - name: "offres"
+        label: "Liste des offres"
+        file: "data/offres.json"
+        fields:
+          - label: "Offres"
+            name: "items"
+            widget: "list"
+            label_singular: "Offre"
+            summary: "{{title}}"
+            fields:
+              - { label: "Titre du poste", name: "title", widget: "string" }
+              - label: "Type de contrat"
+                name: "type"
+                widget: "select"
+                options: ["CDI", "CDD", "Stage", "Bénévolat"]
+              - label: "Secteur concerné"
+                name: "sector"
+                widget: "select"
+                required: false
+                options:
+                  - { label: "Maxi Gym", value: "sport" }
+                  - { label: "La Briqueterie", value: "briqueterie" }
+                  - { label: "La Garderie", value: "garderie" }
+                  - { label: "Maxi Agro", value: "agro" }
+                  - { label: "Maxi Bâtiment", value: "batiment" }
+                  - { label: "Maxi Logistique", value: "logistique" }
+                  - { label: "E-Foncier", value: "efoncier" }
+                  - { label: "Maxi Cosmétique", value: "cosmetique" }
+              - { label: "Lieu", name: "location", widget: "string", required: false }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Photo", name: "photo", widget: "image", required: false }
