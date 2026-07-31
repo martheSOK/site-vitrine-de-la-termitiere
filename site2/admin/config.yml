@@ -2,7 +2,7 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "images/uploads"
+media_folder: "site2/images/uploads"
 public_folder: "/images/uploads"
 
 locale: "fr"
@@ -13,7 +13,7 @@ collections:
     files:
       - name: "promotions"
         label: "Liste des promotions"
-        file: "data/promotions.json"
+        file: "site2/data/promotions.json"
         fields:
           - label: "Promotions"
             name: "items"
@@ -44,7 +44,7 @@ collections:
     files:
       - name: "offres"
         label: "Liste des offres"
-        file: "data/offres.json"
+        file: "site2/data/offres.json"
         fields:
           - label: "Offres"
             name: "items"

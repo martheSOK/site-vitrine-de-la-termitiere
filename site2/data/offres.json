@@ -1,3 +1,11 @@
 {
-  "items": []
+  "items": [
+    {
+      "title": "Gestionnaire des ressources humaines",
+      "type": "CDD",
+      "sector": "sport",
+      "location": "Lomé, Agoè-Daliko",
+      "description": "Gestion des employés et autres tâches administratives liées aux ressources humaines."
+    }
+  ]
 }
