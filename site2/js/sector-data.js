@@ -299,7 +299,7 @@ const SECTORS = {
     letter: "G",
     cardText: "Sécurisation et suivi de vos dossiers de terrain au Togo, de l'achat à l'immatriculation, en toute transparence.",
     comingSoon: false,
-    mission: "Au Togo, un achat de terrain sur deux cache un risque : réquisition déjà existante, titre déjà établi au nom d'un tiers, litige en cours, vente multiple du même terrain. E-Foncier apprécie votre dossier avant tout engagement et refuse les missions à risque plutôt que d'exposer le client : du terrain coutumier au titre foncier signé, nous prenons votre dossier en main, étape par étape, en toute transparence.",
+    mission: "L'achat d'un terrain peut cacher un risque : limites inexistantes, périmètre non défini, géolocalisation absente. E-Foncier apprécie votre dossier avant tout engagement et refuse les missions à risque plutôt que d'exposer le client : du terrain coutumier au titre foncier signé, nous prenons votre dossier en main, étape par étape, en toute transparence.",
     services: [
       { title: "Cession / Vente de terrain", text: "Terrain nu, terrain avec levé, ou terrain avec acte notarié." },
       { title: "Immatriculation (titre en cours)", text: "Levé, bornage, puis délivrance du titre." },
