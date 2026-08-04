@@ -432,12 +432,12 @@ footer nav a:hover{ color:var(--red); }
 
 .sector-body{ padding:70px 0 90px; position:relative; overflow:hidden; }
 .page-watermark{
-  position:absolute; right:-20px; bottom:-20px; width:190px; height:190px;
-  background-repeat:no-repeat; background-position:center; background-size:contain;
-  opacity:.16; pointer-events:none; z-index:0;
+  position:absolute; inset:0;
+  background-repeat:repeat; background-position:0 0; background-size:72px 72px;
+  opacity:.05; pointer-events:none; z-index:0;
 }
-:root[data-theme="dark"] .page-watermark{ opacity:.22; }
-:root[data-theme="light"] .page-watermark{ opacity:.16; }
+:root[data-theme="dark"] .page-watermark{ opacity:.08; }
+:root[data-theme="light"] .page-watermark{ opacity:.05; }
 .sector-layout{ display:grid; grid-template-columns:1fr 320px; gap:56px; align-items:start; position:relative; z-index:1; }
 .sector-main{ min-width:0; }
 
