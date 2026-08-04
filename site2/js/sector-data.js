@@ -365,7 +365,7 @@ const SECTORS = {
     cible: "Hommes, femmes et enfants à la recherche de produits de beauté et de soin, du milieu de gamme au haut de gamme.",
     horaires: "Lundi à vendredi de 7h à 21h30. Samedi de 8h à 22h.",
     localisation: "Agoè (carrefour Zanguéra) et Amarinta, à 300 m de la pharmacie Shékina en allant vers Zanguéra, à côté de la Garderie La Termitière.",
-    photos: ["maxi-cosmetique-1.jpg", "maxi-cosmetique-2.jpg", "maxi-cosmetique-3.jpg", "maxi-cosmetique-4.jpg", "maxi-cosmetique-5.jpg", "maxi-cosmetique-6.jpg", "maxi-cosmetique-7.jpg", "maxi-cosmetique-8.jpg", "maxi-cosmetique-9.jpg", "maxi-cosmetique-10.jpg", "maxi-cosmetique-11.jpg", "maxi-cosmetique-12.jpg"],
+    photos: ["maxi-cosmetique-1.jpg", "maxi-cosmetique-2.jpg", "maxi-cosmetique-3.jpg", "maxi-cosmetique-4.jpg", "maxi-cosmetique-5.jpg", "maxi-cosmetique-6.jpg", "maxi-cosmetique-7.jpg", "maxi-cosmetique-8.jpg", "maxi-cosmetique-9.jpg", "maxi-cosmetique-10.jpg", "maxi-cosmetique-11.jpg", "maxi-cosmetique-12.jpg", "maxi-cosmetique-13.jpg"],
     photosDir: "images/maxi-cosmetique/photos/",
     videos: [],
     videosDir: "images/maxi-cosmetique/videos/",
