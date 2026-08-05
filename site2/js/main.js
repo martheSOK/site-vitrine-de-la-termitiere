@@ -4,14 +4,20 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Secteur pré-rempli sur le formulaire de contact ---------- */
-  const sectorField = document.getElementById('f-sector');
-  const sectorNote = document.getElementById('f-sector-note');
-  if (sectorField && sectorNote) {
+  const sectorInput = document.getElementById('f-sector');
+  const sectorField = document.getElementById('f-sector-field');
+  if (sectorInput && sectorField) {
     const secteur = new URLSearchParams(window.location.search).get('secteur');
     if (secteur) {
-      sectorField.value = secteur;
-      sectorNote.textContent = `Vous nous contactez à propos de : ${secteur}`;
-      sectorNote.style.display = '';
+      sectorInput.value = secteur;
+      sectorField.style.display = '';
+      // Le champ ajouté décale la mise en page après le saut d'ancre initial du navigateur :
+      // on recale le défilement sur #contact une fois le champ affiché.
+      if (window.location.hash === '#contact') {
+        requestAnimationFrame(() => {
+          document.getElementById('contact').scrollIntoView();
+        });
+      }
     }
   }
 

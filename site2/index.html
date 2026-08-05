@@ -286,8 +286,10 @@
       <form class="contact-form" id="contact-form" data-reveal novalidate
             name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="contact">
-        <input type="hidden" id="f-sector" name="sector" value="">
-        <p id="f-sector-note" style="display:none; color:var(--red); font-weight:600; margin:-6px 0 16px; font-size:.9rem;"></p>
+        <div id="f-sector-field" style="display:none;">
+          <label for="f-sector">Secteur concerné</label>
+          <input type="text" id="f-sector" name="sector" value="" readonly>
+        </div>
         <div>
           <label for="f-name">Nom complet</label>
           <input type="text" id="f-name" name="name" placeholder="Votre nom" required>

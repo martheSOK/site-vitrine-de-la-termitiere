@@ -391,6 +391,7 @@ section{ padding:96px 0; }
 }
 .contact-form textarea{ resize:vertical; min-height:110px; }
 .contact-form input::placeholder, .contact-form textarea::placeholder{ color:rgba(255,255,255,.35); }
+.contact-form input[readonly]{ background:rgba(189,60,47,.18); border-color:rgba(189,60,47,.5); color:var(--red-light, #e88f83); font-weight:600; }
 .form-note{ font-size:.78rem; color:rgba(255,255,255,.5); margin-top:-6px; }
 .hp-field{ position:absolute; left:-9999px; top:-9999px; }
 
