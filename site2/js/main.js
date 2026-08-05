@@ -171,6 +171,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const submitBtn = form.querySelector('button[type="submit"]');
       const formData = Object.fromEntries(new FormData(form).entries());
 
+      if (!formData.email && !formData.phone) {
+        formFeedback.textContent = 'Merci de renseigner au moins un email ou un numéro de téléphone.';
+        formFeedback.style.color = '#BD3C2F';
+        return;
+      }
+
       submitBtn.disabled = true;
       formFeedback.textContent = 'Envoi en cours…';
       formFeedback.style.color = '';
