@@ -38,7 +38,7 @@ const SECTORS = {
     cible: "Tout le monde.",
     horaires: "Lundi au samedi de 6h à 10h et de 15h à 22h. Dimanche de 16h à 20h.",
     localisation: "Agoè-Daliko, à 200 m du carrefour Azanglo en allant vers le carrefour Kpogli, ainsi qu'à Kara, EWAOU, en face du Foyer Jean 23.",
-    photos: ["salle-de-sport-1.jpg", "salle-de-sport-2.jpg", "salle-de-sport-3.jpg", "salle-de-sport-4.jpg"],
+    photos: ["salle-de-sport-1.jpg", "salle-de-sport-2.jpg", "salle-de-sport-3.jpg", "salle-de-sport-4.jpg", "salle-de-sport-5.jpg", "salle-de-sport-6.jpg", "salle-de-sport-7.jpg", "salle-de-sport-8.jpg", "salle-de-sport-9.jpg", "salle-de-sport-10.jpg", "salle-de-sport-11.jpg", "salle-de-sport-12.jpg", "salle-de-sport-13.jpg", "salle-de-sport-14.jpg"],
     photosDir: "images/salle-de-sport/photos/",
     videos: [],
     videosDir: "images/salle-de-sport/videos/",

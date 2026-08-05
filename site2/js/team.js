@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     card.style.setProperty('--accent', s.color);
     card.innerHTML = s.manager
       ? `
-        <div class="team-member-avatar">${s.manager.photo ? `<img src="${s.manager.photo}" alt="${s.manager.name}" style="object-fit:cover;">` : logo}</div>
+        <div class="team-member-avatar${s.manager.photo ? ' team-member-avatar--photo' : ''}">${s.manager.photo ? `<img src="${s.manager.photo}" alt="${s.manager.name}">` : logo}</div>
         <h4>${s.manager.name}</h4>
         <p>${s.manager.title}, ${s.name}</p>`
       : `
