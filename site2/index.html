@@ -286,25 +286,11 @@
       <form class="contact-form" id="contact-form" data-reveal novalidate
             name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="contact">
-        <div class="form-row">
-          <div>
-            <label for="f-name">Nom complet</label>
-            <input type="text" id="f-name" name="name" placeholder="Votre nom" required>
-          </div>
-          <div>
-            <label for="f-sector">Secteur concerné</label>
-            <select id="f-sector" name="sector">
-              <option>Maxi Gym (Sport &amp; santé)</option>
-              <option>Briqueterie</option>
-              <option>Garderie</option>
-              <option>Maxi Agro</option>
-              <option>Maxi Bâtiment</option>
-              <option>Maxi Logistique</option>
-              <option>La Foncière</option>
-              <option>Maxi Cosmétique</option>
-              <option>Autre</option>
-            </select>
-          </div>
+        <input type="hidden" id="f-sector" name="sector" value="">
+        <p id="f-sector-note" style="display:none; color:var(--red); font-weight:600; margin:-6px 0 16px; font-size:.9rem;"></p>
+        <div>
+          <label for="f-name">Nom complet</label>
+          <input type="text" id="f-name" name="name" placeholder="Votre nom" required>
         </div>
         <div>
           <label for="f-email">Email</label>

@@ -3,6 +3,18 @@
    ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* ---------- Secteur pré-rempli sur le formulaire de contact ---------- */
+  const sectorField = document.getElementById('f-sector');
+  const sectorNote = document.getElementById('f-sector-note');
+  if (sectorField && sectorNote) {
+    const secteur = new URLSearchParams(window.location.search).get('secteur');
+    if (secteur) {
+      sectorField.value = secteur;
+      sectorNote.textContent = `Vous nous contactez à propos de : ${secteur}`;
+      sectorNote.style.display = '';
+    }
+  }
+
   /* ---------- Thème clair / sombre ---------- */
   const themeToggle = document.getElementById('theme-toggle');
   const root = document.documentElement;

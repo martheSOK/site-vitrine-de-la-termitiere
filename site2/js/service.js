@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
   sideHtml += `
     <div class="info-card cta">
       <p>Une question sur ce secteur ?</p>
-      <a href="index.html#contact" class="btn">Nous contacter</a>
+      <a href="index.html?secteur=${encodeURIComponent(s.name)}#contact" class="btn">Nous contacter</a>
     </div>`;
   sideHtml += renderOtherSectors(s.id, false);
 
