@@ -66,6 +66,7 @@ const SECTORS = {
     name: "La Briqueterie",
     tagline: "Matériaux de construction",
     letter: "B",
+    manager: { name: "Lomé Malam Rassoulou", title: "DS (Directeur Superviseur)" },
     cardText: "Production de briques et location de matériel de chantier, transport inclus sur demande.",
     mission: "Acteur clé de la construction, notre secteur Briqueterie a pour mission de fournir des matériaux de haute qualité pour concrétiser tous vos projets immobiliers. De la production de briques robustes à la location de matériel de chantier professionnel, nous accompagnons professionnels et particuliers avec des solutions clé en main, transport inclus.",
     services: [

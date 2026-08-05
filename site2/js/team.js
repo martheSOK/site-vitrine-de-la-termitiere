@@ -7,10 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = document.createElement('div');
     card.className = 'team-member-card';
     card.style.setProperty('--accent', s.color);
-    card.innerHTML = `
-      <div class="team-member-avatar">${logo}</div>
-      <h4>Responsable ${s.name}</h4>
-      <p>Nom et présentation à venir</p>`;
+    card.innerHTML = s.manager
+      ? `
+        <div class="team-member-avatar">${logo}</div>
+        <h4>${s.manager.name}</h4>
+        <p>${s.manager.title}, ${s.name}</p>`
+      : `
+        <div class="team-member-avatar">${logo}</div>
+        <h4>Responsable ${s.name}</h4>
+        <p>Nom et présentation à venir</p>`;
     grid.appendChild(card);
   });
 });
