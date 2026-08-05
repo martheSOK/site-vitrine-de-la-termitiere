@@ -33,7 +33,7 @@ collections:
                   - { label: "Maxi Agro", value: "agro" }
                   - { label: "Maxi Bâtiment", value: "batiment" }
                   - { label: "Maxi Logistique", value: "logistique" }
-                  - { label: "E-Foncier", value: "efoncier" }
+                  - { label: "La Foncière", value: "efoncier" }
                   - { label: "Maxi Cosmétique", value: "cosmetique" }
               - { label: "Description", name: "description", widget: "text" }
               - { label: "Valable jusqu'au", name: "validUntil", widget: "string", required: false, hint: "Exemple : 31 août 2026" }
@@ -68,7 +68,7 @@ collections:
                   - { label: "Maxi Agro", value: "agro" }
                   - { label: "Maxi Bâtiment", value: "batiment" }
                   - { label: "Maxi Logistique", value: "logistique" }
-                  - { label: "E-Foncier", value: "efoncier" }
+                  - { label: "La Foncière", value: "efoncier" }
                   - { label: "Maxi Cosmétique", value: "cosmetique" }
               - { label: "Lieu", name: "location", widget: "string", required: false }
               - { label: "Description", name: "description", widget: "text" }

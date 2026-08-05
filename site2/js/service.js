@@ -52,7 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
     photo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>',
     play: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
     tiktok: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82a4.28 4.28 0 01-3.14-3.4h-3.03v13.6c0 1.5-1.22 2.72-2.72 2.72a2.72 2.72 0 010-5.44c.25 0 .5.03.72.1V10.3a5.95 5.95 0 00-.72-.04A5.94 5.94 0 000 16.2a5.94 5.94 0 0011.87 0V9.1a7.3 7.3 0 004.24 1.35V7.3c-.02 0-.03 0-.05 0a4.28 4.28 0 01-3.46-1.48z"/></svg>',
+    phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 006 6L15 14l5 2v4a2 2 0 01-2 2C9.5 22 2 14.5 2 6a2 2 0 012-2z"/></svg>',
   };
+
+  // Formate un numéro togolais brut ("22897056547") en "+228 97 05 65 47" pour l'affichage.
+  function formatPhone(raw) {
+    const digits = (raw || '').replace(/\D/g, '');
+    if (digits.length !== 11 || !digits.startsWith('228')) return raw;
+    const local = digits.slice(3);
+    return `+228 ${local.slice(0, 2)} ${local.slice(2, 4)} ${local.slice(4, 6)} ${local.slice(6, 8)}`;
+  }
 
   /* ---------- Contenu "bientôt disponible" ---------- */
   if (s.comingSoon) {
@@ -101,6 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
     mainHtml += `</div>`;
   }
 
+  // Module "Comment ça marche" masqué temporairement : l'inscription en ligne n'est pas encore
+  // disponible au lancement du site. Décommenter le bloc ci-dessous une fois le module prêt.
+  /*
   if (s.procedure && s.procedure.length) {
     mainHtml += `<h2 class="sector-section-title">Comment ça marche</h2><div class="timeline-wrap">`;
     if (s.processPhoto) mainHtml += `<div class="timeline-watermark" style="background-image:url('${s.processPhoto}');" aria-hidden="true"></div>`;
@@ -114,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     mainHtml += `</div></div>`;
   }
+  */
 
   if (s.tables && s.tables.length) {
     mainHtml += `<h2 class="sector-section-title">Tarifs</h2>`;
@@ -179,11 +192,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (s.localisation) {
     sideHtml += `<div class="info-card"><div class="lbl">${ICONS.pin} Localisation</div><p>${s.localisation}</p></div>`;
   }
-  if (s.tiktok && s.tiktok.length) {
-    const tiktokLinks = s.tiktok
-      .map(handle => `<a href="https://www.tiktok.com/@${handle}" target="_blank" rel="noopener noreferrer">@${handle}</a>`)
-      .join('<br>');
-    sideHtml += `<div class="info-card"><div class="lbl">${ICONS.tiktok} TikTok</div><p>${tiktokLinks}</p></div>`;
+  if (s.whatsapp) {
+    sideHtml += `<div class="info-card"><div class="lbl">${ICONS.phone} Téléphone</div><p><a href="tel:+${s.whatsapp}">${formatPhone(s.whatsapp)}</a></p></div>`;
+  }
+  if (s.tiktok) {
+    sideHtml += `<div class="info-card"><div class="lbl">${ICONS.tiktok} TikTok</div><p><a href="${s.tiktok}" target="_blank" rel="noopener noreferrer">${s.tiktokLabel || 'Voir sur TikTok'}</a></p></div>`;
   }
   sideHtml += `
     <div class="info-card cta">
@@ -236,9 +249,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const waIcon = '<svg viewBox="0 0 16 16" fill="currentColor" width="17" height="17"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592z"/></svg>';
     const mailIcon = '<svg viewBox="0 0 16 16" fill="currentColor" width="17" height="17"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114V5.383zm-.03 5.672-5.48-3.29-1.49 1.18a1 1 0 0 1-1.2 0L5.51 7.765 1.03 11.055a1 1 0 0 0 .97.945h12a1 1 0 0 0 .97-.945zM1.03 5.383v5.73l4.758-2.855L1.03 5.383z"/></svg>';
 
+    // Bouton "S'inscrire / en bénéficier" masqué temporairement (inscription en ligne pas encore
+    // disponible au lancement). Décommenter la ligne ci-dessous une fois le module prêt :
+    // <a class="btn btn-primary" href="https://wa.me/${waNumber}?text=${waInscMsg}" target="_blank" rel="noopener noreferrer">S'inscrire / en bénéficier</a>
     return `
       <div class="cta-buttons">
-        <a class="btn btn-primary" href="https://wa.me/${waNumber}?text=${waInscMsg}" target="_blank" rel="noopener noreferrer">S'inscrire / en bénéficier</a>
         <a class="btn btn-whatsapp" href="https://wa.me/${waNumber}?text=${waInfoMsg}" target="_blank" rel="noopener noreferrer">${waIcon} WhatsApp</a>
         <a class="btn btn-secondary" href="mailto:${sector.email}?subject=${mailSubject}&body=${mailBody}">${mailIcon} Nous contacter</a>
       </div>`;
