@@ -3,6 +3,22 @@
    ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* ---------- Écran d'introduction (logo, une fois par session) ---------- */
+  const introOverlay = document.getElementById('intro-overlay');
+  if (introOverlay) {
+    let alreadyShown = false;
+    try { alreadyShown = sessionStorage.getItem('termitiere-intro-shown') === '1'; } catch (e) { /* ignore */ }
+    if (alreadyShown) {
+      introOverlay.remove();
+    } else {
+      try { sessionStorage.setItem('termitiere-intro-shown', '1'); } catch (e) { /* ignore */ }
+      setTimeout(() => {
+        introOverlay.classList.add('intro-hidden');
+        setTimeout(() => introOverlay.remove(), 700);
+      }, 1900);
+    }
+  }
+
   /* ---------- Secteur pré-rempli sur le formulaire de contact ---------- */
   const sectorInput = document.getElementById('f-sector');
   const sectorField = document.getElementById('f-sector-field');
