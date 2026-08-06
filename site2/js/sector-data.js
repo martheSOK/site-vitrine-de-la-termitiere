@@ -193,7 +193,7 @@ const SECTORS = {
     cible: "Particuliers et ménages, professionnels (restaurateurs, commerçants, bouchers, grossistes), éleveurs et acteurs du secteur.",
     horaires: "Lundi au dimanche de 5h30 à 18h.",
     localisation: "Agbelouvé.",
-    photos: ["maxi-agro-1.jpg", "maxi-agro-2.jpg", "maxi-agro-3.jpg", "maxi-agro-4.jpg", "maxi-agro-5.jpg", "maxi-agro-6.jpg", "maxi-agro-7.jpg", "maxi-agro-8.jpg", "maxi-agro-9.jpg", "maxi-agro-10.jpg", "maxi-agro-11.jpg", "maxi-agro-12.jpg", "maxi-agro-13.jpg", "maxi-agro-14.jpg", "maxi-agro-15.jpg", "maxi-agro-16.jpg", "maxi-agro-17.jpg"],
+    photos: ["maxi-agro-1.jpg", "maxi-agro-4.jpg", "maxi-agro-5.jpg", "maxi-agro-6.jpg", "maxi-agro-7.jpg", "maxi-agro-8.jpg", "maxi-agro-9.jpg", "maxi-agro-10.jpg", "maxi-agro-11.jpg", "maxi-agro-12.jpg", "maxi-agro-13.jpg", "maxi-agro-14.jpg", "maxi-agro-15.jpg", "maxi-agro-16.jpg", "maxi-agro-17.jpg"],
     photosDir: "images/maxi-agro/photos/",
     videos: [],
     videosDir: "images/maxi-agro/videos/",
