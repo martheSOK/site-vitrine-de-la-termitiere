@@ -237,7 +237,7 @@ const SECTORS = {
     cible: "Particuliers, administration et ONG.",
     horaires: null,
     localisation: "Lomé, Agoè-Daliko, dans l'immeuble du siège de La Termitière.",
-    photos: ["maxi-batiment-1.jpg", "maxi-batiment-2.jpg", "maxi-batiment-3.jpg", "maxi-batiment-4.jpg", "maxi-batiment-5.jpg", "maxi-batiment-6.jpg", "maxi-batiment-7.jpg", "maxi-batiment-8.jpg", "maxi-batiment-9.jpg"],
+    photos: ["maxi-batiment-1.jpg", "maxi-batiment-2.jpg", "maxi-batiment-3.jpg", "maxi-batiment-4.jpg", "maxi-batiment-5.jpg", "maxi-batiment-6.jpg", "maxi-batiment-7.jpg", "maxi-batiment-8.jpg", "maxi-batiment-9.jpg", "maxi-batiment-10.jpg", "maxi-batiment-11.jpg"],
     photosDir: "images/maxi-batiment/photos/",
     videos: [],
     videosDir: "images/maxi-batiment/videos/",
