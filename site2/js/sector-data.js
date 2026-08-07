@@ -107,7 +107,7 @@ const SECTORS = {
     localisation: "Agoè-Daliko, à proximité du camp GP et du carrefour Sakplétocopé.",
     photos: ["briqueterie-1.jpg", "briqueterie-2.jpg", "briqueterie-3.jpg", "briqueterie-4.jpg", "briqueterie-5.jpg"],
     photosDir: "images/briqueterie/photos/",
-    videos: ["briqueterie-1.mp4"],
+    videos: ["briqueterie-1.mp4", "briqueterie-2.mp4"],
     videosDir: "images/briqueterie/videos/",
     whatsapp: "22896094949",
     email: "latermitiere2021@gmail.com",
