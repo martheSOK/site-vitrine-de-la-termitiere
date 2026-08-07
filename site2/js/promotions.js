@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ${promo.photo ? `<img class="promo-card-photo" src="${promo.photo}" alt="${promo.title}">` : ''}
           ${sector ? `<span class="promo-card-tag">${sector.name}</span>` : ''}
           <h3>${promo.title}</h3>
-          <p>${promo.description}</p>
+          ${promo.description ? `<p>${promo.description}</p>` : ''}
           ${promo.validUntil ? `<p class="promo-card-valid">Valable jusqu'au ${formatDateFr(promo.validUntil)}</p>` : ''}
           <a href="index.html#contact" class="btn btn-primary">En profiter</a>`;
         grid.appendChild(card);

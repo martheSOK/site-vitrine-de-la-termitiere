@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <h3>${offre.title}</h3>
           ${offre.location ? `<p class="offre-card-location">${offre.location}</p>` : ''}
-          <p>${offre.description}</p>
+          ${offre.description ? `<p>${offre.description}</p>` : ''}
           ${offre.dateLimite ? `<p class="offre-card-deadline">Candidatures jusqu'au ${formatDateFr(offre.dateLimite)}</p>` : ''}
           <a class="btn btn-primary" href="mailto:latermitiere2021@gmail.com?subject=${mailSubject}&body=${mailBody}">Postuler</a>`;
         grid.appendChild(card);
