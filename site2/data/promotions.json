@@ -1,3 +1,16 @@
 {
-  "items": []
+  "items": [
+    {
+      "title": "TEST - Promotion encore active",
+      "sector": "sport",
+      "description": "Ceci est une promotion de test avec une date future : elle doit rester visible sur le site.",
+      "validUntil": "2026-12-31"
+    },
+    {
+      "title": "TEST - Promotion expirée",
+      "sector": "agro",
+      "description": "Ceci est une promotion de test avec une date passée : elle doit être invisible sur le site public, mais reste visible et modifiable ici dans l'admin.",
+      "validUntil": "2026-01-01"
+    }
+  ]
 }
