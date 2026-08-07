@@ -36,7 +36,7 @@ collections:
                   - { label: "La Foncière", value: "efoncier" }
                   - { label: "Maxi Cosmétique", value: "cosmetique" }
               - { label: "Description", name: "description", widget: "text" }
-              - { label: "Valable jusqu'au", name: "validUntil", widget: "string", required: false, hint: "Exemple : 31 août 2026" }
+              - { label: "Valable jusqu'au", name: "validUntil", widget: "date", required: false, hint: "La promotion disparaîtra automatiquement du site public après cette date. Laisser vide si pas de date de fin.", format: "YYYY-MM-DD" }
               - { label: "Photo / affiche", name: "photo", widget: "image", required: false }
 
   - name: "offres"
@@ -72,4 +72,5 @@ collections:
                   - { label: "Maxi Cosmétique", value: "cosmetique" }
               - { label: "Lieu", name: "location", widget: "string", required: false }
               - { label: "Description", name: "description", widget: "text" }
+              - { label: "Date limite de candidature", name: "dateLimite", widget: "date", required: false, hint: "L'offre disparaîtra automatiquement du site public après cette date. Laisser vide si pas de date limite.", format: "YYYY-MM-DD" }
               - { label: "Photo", name: "photo", widget: "image", required: false }

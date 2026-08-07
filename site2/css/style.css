@@ -709,6 +709,7 @@ table.price-table tr:last-child td{ border-bottom:none; }
   background:var(--accent); border-radius:20px; padding:4px 12px;
 }
 .offre-card-location{ font-size:.82rem; color:var(--text-muted); margin:0 0 10px; }
+.offre-card-deadline{ font-size:.82rem; color:var(--accent); font-weight:600; }
 
 @media (max-width:800px){
   .promotions-grid, .offres-grid{ grid-template-columns:1fr; }

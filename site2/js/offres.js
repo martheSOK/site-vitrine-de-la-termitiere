@@ -3,10 +3,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const empty = document.getElementById('offres-empty');
   if (!grid) return;
 
+  const isExpired = (dateStr) => {
+    if (!dateStr) return false;
+    const d = new Date(dateStr);
+    if (isNaN(d)) return false;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return d < today;
+  };
+  const formatDateFr = (dateStr) => {
+    const d = new Date(dateStr);
+    if (isNaN(d)) return dateStr;
+    return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+  };
+
   fetch('data/offres.json')
     .then(res => res.json())
     .then(data => {
-      const items = (data && data.items) || [];
+      const items = ((data && data.items) || []).filter(offre => !isExpired(offre.dateLimite));
       if (!items.length) {
         empty.style.display = '';
         return;
@@ -29,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <h3>${offre.title}</h3>
           ${offre.location ? `<p class="offre-card-location">${offre.location}</p>` : ''}
           <p>${offre.description}</p>
+          ${offre.dateLimite ? `<p class="offre-card-deadline">Candidatures jusqu'au ${formatDateFr(offre.dateLimite)}</p>` : ''}
           <a class="btn btn-primary" href="mailto:latermitiere2021@gmail.com?subject=${mailSubject}&body=${mailBody}">Postuler</a>`;
         grid.appendChild(card);
       });

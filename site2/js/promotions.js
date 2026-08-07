@@ -3,10 +3,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const empty = document.getElementById('promotions-empty');
   if (!grid) return;
 
+  const isExpired = (dateStr) => {
+    if (!dateStr) return false;
+    const d = new Date(dateStr);
+    if (isNaN(d)) return false;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return d < today;
+  };
+  const formatDateFr = (dateStr) => {
+    const d = new Date(dateStr);
+    if (isNaN(d)) return dateStr;
+    return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+  };
+
   fetch('data/promotions.json')
     .then(res => res.json())
     .then(data => {
-      const items = (data && data.items) || [];
+      const items = ((data && data.items) || []).filter(promo => !isExpired(promo.validUntil));
       if (!items.length) {
         empty.style.display = '';
         return;
@@ -23,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ${sector ? `<span class="promo-card-tag">${sector.name}</span>` : ''}
           <h3>${promo.title}</h3>
           <p>${promo.description}</p>
-          ${promo.validUntil ? `<p class="promo-card-valid">Valable jusqu'au ${promo.validUntil}</p>` : ''}
+          ${promo.validUntil ? `<p class="promo-card-valid">Valable jusqu'au ${formatDateFr(promo.validUntil)}</p>` : ''}
           <a href="index.html#contact" class="btn btn-primary">En profiter</a>`;
         grid.appendChild(card);
       });
