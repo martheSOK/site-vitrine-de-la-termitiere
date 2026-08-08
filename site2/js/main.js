@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     introSlide.className = 'hero-bg-slide active';
     introSlide.style.backgroundImage = "url('images/vision/termitiere-savane.jpg')";
     introSlide.dataset.name = 'La Termitière';
-    introSlide.dataset.text = "Un groupe togolais actif sur plusieurs secteurs, une seule conviction.";
+    introSlide.dataset.text = "Une équipe togolaise active sur plusieurs secteurs, une seule conviction.";
     introSlide.dataset.href = '#secteurs';
     introSlide.dataset.cta = 'Découvrir nos secteurs';
     heroBg.appendChild(introSlide);
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slide.style.backgroundImage = `url('${photo}')`;
       slide.dataset.name = s.name;
       slide.dataset.text = s.cardText || '';
-      slide.dataset.href = `service.html?id=${s.id}`;
+      slide.dataset.href = '#secteurs';
       slide.dataset.cta = 'En savoir plus';
       heroBg.appendChild(slide);
     });
