@@ -40,6 +40,7 @@ const SECTORS = {
     localisation: "Agoè-Daliko, à 200 m du carrefour Azanglo en allant vers le carrefour Kpogli, ainsi qu'à Kara, EWAOU, en face du Foyer Jean 23.",
     photos: ["salle-de-sport-1.jpg", "salle-de-sport-2.jpg", "salle-de-sport-3.jpg", "salle-de-sport-4.jpg", "salle-de-sport-5.jpg", "salle-de-sport-6.jpg", "salle-de-sport-7.jpg", "salle-de-sport-8.jpg", "salle-de-sport-9.jpg", "salle-de-sport-10.jpg", "salle-de-sport-11.jpg", "salle-de-sport-12.jpg", "salle-de-sport-13.jpg", "salle-de-sport-14.jpg"],
     photosDir: "images/salle-de-sport/photos/",
+    heroPhoto: "images/salle-de-sport/photos/gym-accueil.jpg",
     videos: [],
     videosDir: "images/salle-de-sport/videos/",
     whatsapp: "22896094949",

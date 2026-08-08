@@ -1,6 +1,25 @@
 /* =========================================================
    LA TERMITIÈRE — script partagé (index.html + service.html)
    ========================================================= */
+/* ---------- Écran de chargement (logo, le temps que la page/les images arrivent) ---------- */
+(() => {
+  const splash = document.getElementById('loading-splash');
+  if (!splash) return;
+  let hidden = false;
+  const hide = () => {
+    if (hidden) return;
+    hidden = true;
+    splash.classList.add('loading-hidden');
+    setTimeout(() => splash.remove(), 600);
+  };
+  if (document.readyState === 'complete') {
+    hide();
+  } else {
+    window.addEventListener('load', hide);
+  }
+  setTimeout(hide, 3500); // filet de sécurité si le chargement traîne
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- Secteur pré-rempli sur le formulaire de contact ---------- */
@@ -111,25 +130,42 @@ document.addEventListener('DOMContentLoaded', () => {
       slides[current].classList.add('active');
     }, intervalMs);
   };
-  /* ---------- Hero plein écran : une diapositive par secteur ---------- */
+  /* ---------- Hero plein écran : la termitière puis une diapositive par secteur ---------- */
   const heroBg = document.getElementById('hero-bg');
   const heroCaption = document.getElementById('hero-sector-caption');
+  const heroCta = document.getElementById('hero-sector-cta');
   if (heroBg && typeof SECTORS !== 'undefined') {
-    SECTOR_ORDER.forEach((id, i) => {
+    const introSlide = document.createElement('div');
+    introSlide.className = 'hero-bg-slide active';
+    introSlide.style.backgroundImage = "url('images/vision/termitiere-savane.jpg')";
+    introSlide.dataset.name = 'La Termitière';
+    introSlide.dataset.text = "Un groupe togolais actif sur plusieurs secteurs, une seule conviction.";
+    introSlide.dataset.href = '#secteurs';
+    introSlide.dataset.cta = 'Découvrir nos secteurs';
+    heroBg.appendChild(introSlide);
+
+    SECTOR_ORDER.forEach((id) => {
       const s = SECTORS[id];
       if (!s.photos || !s.photos.length) return;
+      const photo = s.heroPhoto || (s.photosDir + s.photos[0]);
       const slide = document.createElement('div');
-      slide.className = 'hero-bg-slide' + (i === 0 ? ' active' : '');
-      slide.style.backgroundImage = `url('${s.photosDir}${s.photos[0]}')`;
+      slide.className = 'hero-bg-slide';
+      slide.style.backgroundImage = `url('${photo}')`;
       slide.dataset.name = s.name;
       slide.dataset.text = s.cardText || '';
+      slide.dataset.href = `service.html?id=${s.id}`;
+      slide.dataset.cta = 'En savoir plus';
       heroBg.appendChild(slide);
     });
+
     const heroSlides = heroBg.querySelectorAll('.hero-bg-slide');
     let heroCurrent = 0;
     const setCaption = (slide) => {
-      if (!heroCaption) return;
-      heroCaption.innerHTML = `<strong>${slide.dataset.name}</strong> — ${slide.dataset.text}`;
+      if (heroCaption) heroCaption.innerHTML = `<strong>${slide.dataset.name}</strong> — ${slide.dataset.text}`;
+      if (heroCta) {
+        heroCta.textContent = slide.dataset.cta;
+        heroCta.setAttribute('href', slide.dataset.href);
+      }
     };
     if (heroSlides.length) setCaption(heroSlides[0]);
     if (heroSlides.length > 1 && !prefersReducedMotion) {
@@ -137,13 +173,13 @@ document.addEventListener('DOMContentLoaded', () => {
         heroSlides[heroCurrent].classList.remove('active');
         heroCurrent = (heroCurrent + 1) % heroSlides.length;
         heroSlides[heroCurrent].classList.add('active');
-        if (heroCaption) {
-          heroCaption.classList.add('fading');
-          setTimeout(() => {
-            setCaption(heroSlides[heroCurrent]);
-            heroCaption.classList.remove('fading');
-          }, 350);
-        }
+        if (heroCaption) heroCaption.classList.add('fading');
+        if (heroCta) heroCta.classList.add('fading');
+        setTimeout(() => {
+          setCaption(heroSlides[heroCurrent]);
+          if (heroCaption) heroCaption.classList.remove('fading');
+          if (heroCta) heroCta.classList.remove('fading');
+        }, 350);
       }, 5000);
     }
   }
