@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroSlides = heroBg.querySelectorAll('.hero-bg-slide');
     let heroCurrent = 0;
     const setCaption = (slide) => {
-      if (heroCaption) heroCaption.innerHTML = `<strong>${slide.dataset.name}</strong> — ${slide.dataset.text}`;
+      if (heroCaption) heroCaption.innerHTML = `<strong>${slide.dataset.name}</strong><br>${slide.dataset.text}`;
       if (heroCta) {
         heroCta.textContent = slide.dataset.cta;
         heroCta.setAttribute('href', slide.dataset.href);
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
           setCaption(heroSlides[heroCurrent]);
           if (heroCaption) heroCaption.classList.remove('fading');
           if (heroCta) heroCta.classList.remove('fading');
-        }, 350);
+        }, 400);
       }, 5000);
     }
   }
