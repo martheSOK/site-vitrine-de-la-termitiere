@@ -281,6 +281,7 @@ const SECTORS = {
     localisation: "Interventions à Kara, Sokodé et Lomé.",
     photos: ["maxi-logistique-9.jpg", "maxi-logistique-1.jpg", "maxi-logistique-2.jpg", "maxi-logistique-3.jpg", "maxi-logistique-4.jpg", "maxi-logistique-5.jpg", "maxi-logistique-6.jpg", "maxi-logistique-7.jpg", "maxi-logistique-8.jpg", "maxi-logistique-10.jpg", "maxi-logistique-11.jpg", "maxi-logistique-12.jpg", "maxi-logistique-13.jpg", "maxi-logistique-14.jpg", "maxi-logistique-15.jpg", "maxi-logistique-16.jpg", "maxi-logistique-17.jpg", "maxi-logistique-18.jpg", "maxi-logistique-19.jpg"],
     photosDir: "images/maxi-logistique/photos/",
+    heroPhoto: "images/maxi-logistique/photos/logistique-accueil.jpg",
     videos: ["maxi-logistique-1.mp4"],
     videosDir: "images/maxi-logistique/videos/",
     whatsapp: "22896094949",
