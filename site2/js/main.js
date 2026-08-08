@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     SECTOR_ORDER.forEach((id) => {
       const s = SECTORS[id];
-      if (!s.photos || !s.photos.length) return;
+      if (!s.photos || !s.photos.length || s.heroSkip) return;
       const photo = s.heroPhoto || (s.photosDir + s.photos[0]);
       const slide = document.createElement('div');
       slide.className = 'hero-bg-slide';
