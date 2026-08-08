@@ -48,34 +48,23 @@
 
 <main>
 
-  <!-- ================= HERO : bande photo + texte ================= -->
-  <div class="photo-strip" id="hero-bg" aria-hidden="true" style="height:440px;">
-    <div class="hero-bg-slide active" style="background-image:url('images/vision/termitiere-naturelle.jpg'); background-position:center 75%;"></div>
-    <div class="hero-bg-slide" style="background-image:url('images/salle-de-sport/photos/salle-de-sport-1.jpg');"></div>
-    <div class="hero-bg-slide" style="background-image:url('images/garderie/photos/garderie-2.jpg');"></div>
-    <div class="hero-bg-slide" style="background-image:url('images/garderie/photos/garderie-3.jpg');"></div>
-    <div class="hero-bg-slide" style="background-image:url('images/maxi-batiment/photos/maxi-batiment-1.jpg');"></div>
-    <div class="hero-bg-slide" style="background-image:url('images/maxi-logistique/photos/maxi-logistique-3.jpg');"></div>
-    <div class="hero-bg-slide" style="background-image:url('images/maxi-cosmetique/photos/maxi-cosmetique-1.jpg');"></div>
-  </div>
-
-  <section id="accueil" class="pattern-bg" style="padding-top:60px;">
-    <div class="container hero-content" style="max-width:760px; margin:0 auto; text-align:center;">
-      <span class="hero-badge hero-slogan" style="color:var(--red); background:var(--bg-card); border-color:var(--border);">La Termitière, toujours dans l'action !</span>
-      <h1 style="color:var(--ink);">Nous générons de la valeur locale. <em style="color:var(--red);">Bâtir</em> l'avenir de la jeunesse africaine.</h1>
-      <p class="lede" style="color:var(--text-muted); margin-left:auto; margin-right:auto;">Sport &amp; santé, matériaux de construction, formation et éducation, élevage et agriculture, bâtiment : plusieurs secteurs d'activité, une seule ambition, créer de la valeur ajoutée d'ici 2050.</p>
+  <!-- ================= HERO : plein écran, un secteur par diapositive ================= -->
+  <section id="accueil" class="hero">
+    <div class="hero-bg" id="hero-bg" aria-hidden="true"></div>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content" style="margin:0 auto; text-align:center;">
+      <span class="hero-logo-wrap"><img src="images/logo/logo.png" alt="La Termitière"></span>
+      <span class="hero-badge hero-slogan">La Termitière, toujours dans l'action !</span>
+      <h1>Nous générons de la valeur locale. <em>Bâtir</em> l'avenir de la jeunesse africaine.</h1>
+      <p class="lede hero-sector-caption" id="hero-sector-caption">&nbsp;</p>
       <div class="hero-actions" style="justify-content:center;">
         <a href="#secteurs" class="btn btn-primary">Découvrir nos secteurs</a>
-        <a href="#contact" class="btn btn-secondary" style="color:var(--red); border-color:var(--red);">Nous contacter</a>
-      </div>
-
-      <div class="hero-stats" style="border-top-color:var(--line); margin-top:60px;">
-        <div><strong style="color:var(--ink);">8</strong><span style="color:var(--text-muted);">secteurs d'activité actifs</span></div>
-        <div><strong style="color:var(--ink);">2026</strong><span style="color:var(--text-muted);">lancement du site vitrine</span></div>
-        <div><strong style="color:var(--ink);">2050</strong><span style="color:var(--text-muted);">horizon de notre vision</span></div>
-        <div><strong style="color:var(--ink);">100%</strong><span style="color:var(--text-muted);">ancrage local</span></div>
+        <a href="#contact" class="btn btn-secondary">Nous contacter</a>
       </div>
     </div>
+    <a href="#apropos" class="hero-scroll-cue" aria-label="Défiler vers le bas">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </a>
   </section>
 
   <!-- ================= BANDE : QUI SOMMES-NOUS ================= -->

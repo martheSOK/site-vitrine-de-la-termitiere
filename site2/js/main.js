@@ -111,7 +111,42 @@ document.addEventListener('DOMContentLoaded', () => {
       slides[current].classList.add('active');
     }, intervalMs);
   };
-  initCarousel('hero-bg', 'hero-bg-slide', 5000);
+  /* ---------- Hero plein écran : une diapositive par secteur ---------- */
+  const heroBg = document.getElementById('hero-bg');
+  const heroCaption = document.getElementById('hero-sector-caption');
+  if (heroBg && typeof SECTORS !== 'undefined') {
+    SECTOR_ORDER.forEach((id, i) => {
+      const s = SECTORS[id];
+      if (!s.photos || !s.photos.length) return;
+      const slide = document.createElement('div');
+      slide.className = 'hero-bg-slide' + (i === 0 ? ' active' : '');
+      slide.style.backgroundImage = `url('${s.photosDir}${s.photos[0]}')`;
+      slide.dataset.name = s.name;
+      slide.dataset.text = s.cardText || '';
+      heroBg.appendChild(slide);
+    });
+    const heroSlides = heroBg.querySelectorAll('.hero-bg-slide');
+    let heroCurrent = 0;
+    const setCaption = (slide) => {
+      if (!heroCaption) return;
+      heroCaption.innerHTML = `<strong>${slide.dataset.name}</strong> — ${slide.dataset.text}`;
+    };
+    if (heroSlides.length) setCaption(heroSlides[0]);
+    if (heroSlides.length > 1 && !prefersReducedMotion) {
+      setInterval(() => {
+        heroSlides[heroCurrent].classList.remove('active');
+        heroCurrent = (heroCurrent + 1) % heroSlides.length;
+        heroSlides[heroCurrent].classList.add('active');
+        if (heroCaption) {
+          heroCaption.classList.add('fading');
+          setTimeout(() => {
+            setCaption(heroSlides[heroCurrent]);
+            heroCaption.classList.remove('fading');
+          }, 350);
+        }
+      }, 5000);
+    }
+  }
   initCarousel('vision-bg', 'vision-bg-slide', 4200);
 
   /* ---------- Cartes secteurs (page d'accueil) ---------- */
