@@ -303,6 +303,9 @@ section{ padding:96px 0; }
   position:relative; overflow:hidden;
 }
 @media (max-width:700px){ .photo-strip{ height:200px; } }
+.photo-strip--tall{ height:720px; }
+@media (max-width:900px){ .photo-strip--tall{ height:520px; } }
+@media (max-width:700px){ .photo-strip--tall{ height:420px; } }
 
 /* ---------- Bande de couleur pleine largeur avec titre ---------- */
 .color-band{
