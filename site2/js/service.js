@@ -30,13 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('sector-title').textContent = s.name;
   document.getElementById('sector-breadcrumb-name').textContent = s.name;
 
-  const logoWrap = document.getElementById('sector-hero-logo-wrap');
-  if (s.logo) {
-    logoWrap.innerHTML = `<div class="sector-hero-logo"><img src="${s.logo}" alt="Logo ${s.name}"></div>`;
-  } else {
-    logoWrap.innerHTML = `<div class="sector-hero-badge-letter">${s.letter}</div>`;
-  }
-
   if (s.photos && s.photos.length) {
     const heroPhoto = document.createElement('div');
     heroPhoto.className = 'sector-hero-photo';
