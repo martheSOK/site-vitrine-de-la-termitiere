@@ -493,16 +493,17 @@ footer nav a:hover{ color:var(--red); }
    PAGE DÉTAIL SECTEUR (service.html)
    ========================================================= */
 .sector-hero{
-  position:relative; padding:160px 0 70px; color:#fff; overflow:hidden; isolation:isolate;
+  position:relative; padding:210px 0 130px; min-height:56vh; display:flex; align-items:center;
+  color:#fff; overflow:hidden; isolation:isolate;
   background:var(--accent-dark, var(--red-dark));
 }
 .sector-hero::before{
-  content:""; position:absolute; inset:0; z-index:-1; opacity:.5;
-  background:linear-gradient(100deg, var(--accent-dark, var(--red-dark)) 15%, rgba(0,0,0,.28) 60%, rgba(0,0,0,.1) 100%);
+  content:""; position:absolute; inset:0; z-index:-1; opacity:.32;
+  background:linear-gradient(100deg, var(--accent-dark, var(--red-dark)) 10%, rgba(0,0,0,.22) 60%, rgba(0,0,0,.08) 100%);
 }
 .sector-hero-photo{
   position:absolute; inset:0; z-index:-2; background-size:cover; background-position:center;
-  opacity:.62; filter:saturate(1.05);
+  opacity:.92; filter:saturate(1.05);
 }
 .sector-hero-inner{ display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
 .sector-hero-logo{ height:70px; background:#fff; border-radius:var(--radius-md); padding:12px 18px; display:flex; align-items:center; box-shadow:var(--shadow-md); }
@@ -511,9 +512,9 @@ footer nav a:hover{ color:var(--red); }
   width:70px; height:70px; border-radius:50%; background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.3);
   display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:700; font-size:1.8rem;
 }
-.sector-hero h1{ color:#fff; font-size:clamp(1.9rem, 4vw, 2.8rem); margin:0; text-shadow:0 2px 14px rgba(0,0,0,.55); }
-.sector-hero .sector-hero-tag{ color:rgba(255,255,255,.9); font-family:var(--font-display); font-weight:600; letter-spacing:.06em; text-transform:uppercase; font-size:.82rem; margin-bottom:6px; display:block; text-shadow:0 1px 8px rgba(0,0,0,.5); }
-.sector-breadcrumb{ margin-top:26px; font-size:.85rem; color:rgba(255,255,255,.85); text-shadow:0 1px 6px rgba(0,0,0,.5); }
+.sector-hero h1{ color:#fff; font-size:clamp(1.9rem, 4vw, 2.8rem); margin:0; text-shadow:0 2px 6px rgba(0,0,0,.6), 0 6px 26px rgba(0,0,0,.5); }
+.sector-hero .sector-hero-tag{ color:#fff; font-family:var(--font-display); font-weight:600; letter-spacing:.06em; text-transform:uppercase; font-size:.82rem; margin-bottom:6px; display:block; text-shadow:0 1px 4px rgba(0,0,0,.65), 0 4px 16px rgba(0,0,0,.5); }
+.sector-breadcrumb{ margin-top:26px; font-size:.85rem; color:#fff; text-shadow:0 1px 4px rgba(0,0,0,.65), 0 3px 14px rgba(0,0,0,.5); }
 .sector-breadcrumb a{ color:#fff; text-decoration:underline; text-underline-offset:3px; }
 
 .sector-body{ padding:70px 0 90px; position:relative; overflow:hidden; }
@@ -665,7 +666,7 @@ table.price-table tr:last-child td{ border-bottom:none; }
 @media (max-width: 560px){
   section{ padding:66px 0; }
   .hero{ padding:150px 0 76px; }
-  .sector-hero{ padding:140px 0 56px; }
+  .sector-hero{ padding:160px 0 80px; min-height:46vh; }
 }
 
 .carrieres-photo-banner{
