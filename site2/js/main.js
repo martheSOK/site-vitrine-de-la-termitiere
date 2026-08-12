@@ -1,9 +1,10 @@
 /* =========================================================
    LA TERMITIÈRE — script partagé (index.html + service.html)
    ========================================================= */
-/* ---------- Écran de chargement (logo, le temps que la page/les images arrivent) ---------- */
+/* ---------- Écran de chargement (logo animé, le temps que la page/les images arrivent) ---------- */
 (() => {
   const splash = document.getElementById('loading-splash');
+  const video = document.getElementById('loading-splash-video');
   if (!splash) return;
   let hidden = false;
   const hide = () => {
@@ -12,12 +13,25 @@
     splash.classList.add('loading-hidden');
     setTimeout(() => splash.remove(), 600);
   };
-  if (document.readyState === 'complete') {
-    hide();
-  } else {
-    window.addEventListener('load', hide);
+
+  let pageLoaded = document.readyState === 'complete';
+  let videoDone = !video;
+  const maybeHide = () => { if (pageLoaded && videoDone) hide(); };
+
+  if (!pageLoaded) window.addEventListener('load', () => { pageLoaded = true; maybeHide(); });
+
+  if (video) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      videoDone = true;
+    } else {
+      video.addEventListener('ended', () => { videoDone = true; maybeHide(); });
+      video.play().catch(() => { videoDone = true; maybeHide(); });
+    }
   }
-  setTimeout(hide, 3500); // filet de sécurité si le chargement traîne
+
+  maybeHide();
+  setTimeout(hide, 4500); // filet de sécurité si le chargement traîne
 })();
 
 document.addEventListener('DOMContentLoaded', () => {
