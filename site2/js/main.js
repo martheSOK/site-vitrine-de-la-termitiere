@@ -31,7 +31,7 @@
   }
 
   maybeHide();
-  setTimeout(hide, 4500); // filet de sécurité si le chargement traîne
+  setTimeout(hide, 8500); // filet de sécurité si le chargement traîne
 })();
 
 document.addEventListener('DOMContentLoaded', () => {

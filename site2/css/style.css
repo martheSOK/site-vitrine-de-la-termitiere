@@ -198,7 +198,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   transition:opacity .5s ease, visibility .5s ease;
 }
 .loading-splash.loading-hidden{ opacity:0; visibility:hidden; pointer-events:none; }
-.loading-splash-video{ width:min(420px, 70vw); height:auto; }
+.loading-splash-video{ width:min(760px, 92vw); height:auto; }
 .loading-splash-logo{
   width:120px; height:120px; border-radius:26px; background:#fff; padding:18px;
   display:flex; align-items:center; justify-content:center; box-shadow:0 20px 60px rgba(0,0,0,.35);
