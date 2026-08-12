@@ -157,7 +157,7 @@ const SECTORS = {
     localisation: "Amarinta, non loin de la pharmacie Shékina.",
     photos: ["garderie-1.jpg", "garderie-2.jpg", "garderie-3.jpg", "garderie-4.jpg", "garderie-5.jpg", "garderie-6.jpg", "garderie-7.jpg", "garderie-8.jpg", "garderie-9.jpg", "garderie-10.jpg", "garderie-11.jpg", "garderie-12.jpg", "garderie-13.jpg"],
     photosDir: "images/garderie/photos/",
-    heroPhoto: "images/garderie/photos/garderie-2.jpg",
+    heroPhoto: "images/garderie/photos/garderie-fete.jpg",
     videos: ["garderie-1.mp4", "garderie-2.mp4", "garderie-3.mp4", "garderie-4.mp4", "garderie-5.mp4", "garderie-6.mp4"],
     videosDir: "images/garderie/videos/",
     whatsapp: "22871518895",
