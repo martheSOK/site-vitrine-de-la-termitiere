@@ -30,10 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('sector-title').textContent = s.name;
   document.getElementById('sector-breadcrumb-name').textContent = s.name;
 
-  if (s.photos && s.photos.length) {
+  if (!s.heroSkip && (s.heroPhoto || (s.photos && s.photos.length))) {
     const heroPhoto = document.createElement('div');
     heroPhoto.className = 'sector-hero-photo';
-    heroPhoto.style.backgroundImage = `url('${s.photosDir}${s.photos[0]}')`;
+    heroPhoto.style.backgroundImage = `url('${s.heroPhoto || (s.photosDir + s.photos[0])}')`;
     document.getElementById('sector-hero').prepend(heroPhoto);
   }
 

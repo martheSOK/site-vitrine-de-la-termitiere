@@ -374,6 +374,7 @@ const SECTORS = {
     localisation: "Agoè (carrefour Tazo) et Amarinta, à 300 m de la pharmacie Shékina en allant vers Sanguéra, à côté de la Garderie La Termitière.",
     photos: ["maxi-cosmetique-1.jpg", "maxi-cosmetique-2.jpg", "maxi-cosmetique-3.jpg", "maxi-cosmetique-4.jpg", "maxi-cosmetique-5.jpg", "maxi-cosmetique-6.jpg", "maxi-cosmetique-7.jpg", "maxi-cosmetique-8.jpg", "maxi-cosmetique-9.jpg", "maxi-cosmetique-10.jpg"],
     photosDir: "images/maxi-cosmetique/photos/",
+    heroPhoto: "images/maxi-cosmetique/photos/maxi-cosmetique-2.jpg",
     videos: [],
     videosDir: "images/maxi-cosmetique/videos/",
     whatsapp: "22897056547",
