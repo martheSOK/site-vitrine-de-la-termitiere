@@ -1,0 +1,14 @@
+{
+  "name": "termitiere-decap-oauth-proxy",
+  "version": "1.0.0",
+  "description": "Petit service OAuth GitHub pour Decap CMS (remplace Netlify Identity + Git Gateway)",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-fetch": "^2.7.0"
+  }
+}
