@@ -60,6 +60,7 @@
 
 *,*::before,*::after{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; scroll-padding-top:90px; }
+img, video{ -webkit-user-select:none; user-select:none; -webkit-user-drag:none; }
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior:auto; }
   *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }

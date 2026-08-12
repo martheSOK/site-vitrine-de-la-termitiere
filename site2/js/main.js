@@ -346,5 +346,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('dragstart', (e) => {
     if (e.target.closest('img, video')) e.preventDefault();
   });
+  document.addEventListener('keydown', (e) => {
+    const key = e.key.toLowerCase();
+    if ((e.ctrlKey || e.metaKey) && (key === 's' || key === 'u')) e.preventDefault();
+  });
 
 });
