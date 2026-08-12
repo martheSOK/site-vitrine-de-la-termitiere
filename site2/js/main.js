@@ -6,6 +6,12 @@
   const splash = document.getElementById('loading-splash');
   const video = document.getElementById('loading-splash-video');
   if (!splash) return;
+
+  let alreadyShown = false;
+  try { alreadyShown = sessionStorage.getItem('termitiere-intro-shown') === '1'; } catch (e) { /* ignore */ }
+  if (alreadyShown) { splash.remove(); return; }
+  try { sessionStorage.setItem('termitiere-intro-shown', '1'); } catch (e) { /* ignore */ }
+
   let hidden = false;
   const hide = () => {
     if (hidden) return;
