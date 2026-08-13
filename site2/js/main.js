@@ -251,14 +251,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ---------- Formulaire de contact (Netlify Forms) ---------- */
+  /* ---------- Formulaire de contact (Formspree) ---------- */
   const form = document.getElementById('contact-form');
   const formFeedback = document.getElementById('form-feedback');
   if (form) {
-    const encode = (data) => Object.keys(data)
-      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-      .join('&');
-
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -278,10 +274,10 @@ document.addEventListener('DOMContentLoaded', () => {
       formFeedback.textContent = 'Envoi en cours…';
       formFeedback.style.color = '';
 
-      fetch('/', {
+      fetch('https://formspree.io/f/xjybrqvq', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode(formData),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(formData),
       })
         .then((response) => {
           if (!response.ok) throw new Error('Réponse serveur invalide');
@@ -290,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
           form.reset();
         })
         .catch(() => {
-          formFeedback.textContent = "L'envoi en direct n'est actif qu'une fois le site déployé sur Netlify. En local, ce message ne part pas encore.";
+          formFeedback.textContent = "L'envoi a échoué. Merci de réessayer, ou de nous contacter directement par téléphone/WhatsApp.";
           formFeedback.style.color = '#BD3C2F';
         })
         .finally(() => { submitBtn.disabled = false; });
