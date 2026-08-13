@@ -1,0 +1,14 @@
+{
+  "name": "termitiere-contact-proxy",
+  "version": "1.0.0",
+  "description": "Recoit les messages du formulaire de contact du site et les envoie par email via Brevo, avec routage par secteur",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "node-fetch": "^2.7.0"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "_comment": "Adresse de destination par secteur (cle = nom exact du secteur tel qu'envoye par le formulaire). Mets a jour au fur et a mesure que les emails de chaque secteur sont crees. 'default' est utilisee si le secteur n'est pas reconnu ou pas precise (formulaire general).",
+  "default": "latermitiere2021@gmail.com",
+  "Maxi Gym": "latermitiere2021@gmail.com",
+  "La Briqueterie": "latermitiere2021@gmail.com",
+  "La Garderie": "latermitiere2021@gmail.com",
+  "Maxi Agro": "latermitiere2021@gmail.com",
+  "Maxi Bâtiment": "latermitiere2021@gmail.com",
+  "Maxi Logistique": "latermitiere2021@gmail.com",
+  "La Foncière": "latermitiere2021@gmail.com",
+  "Maxi Cosmétique": "latermitiere2021@gmail.com"
+}
