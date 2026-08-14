@@ -166,8 +166,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     SECTOR_ORDER.forEach((id) => {
       const s = SECTORS[id];
-      if (!s.photos || !s.photos.length || s.heroSkip) return;
-      const photo = s.heroPhoto || (s.photosDir + s.photos[0]);
+      if (s.heroSkip) return;
+      const photo = s.homeHeroPhoto || s.heroPhoto || (s.photos && s.photos.length ? s.photosDir + s.photos[0] : null);
+      if (!photo) return;
       const slide = document.createElement('div');
       slide.className = 'hero-bg-slide';
       slide.style.backgroundImage = `url('${photo}')`;
