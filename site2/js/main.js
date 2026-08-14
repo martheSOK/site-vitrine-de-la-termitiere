@@ -214,9 +214,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const logoBlock = s.logo
         ? `<img src="${s.logo}" alt="Logo ${s.name}">`
         : `<span class="letter-badge">${s.letter}</span>`;
-      const hasPhoto = s.photos && s.photos.length > 0;
-      const photoStyle = hasPhoto
-        ? `background-image:url('${s.photosDir}${s.photos[0]}');`
+      const cardPhoto = s.heroPhoto || (s.photos && s.photos.length ? s.photosDir + s.photos[0] : null);
+      const photoStyle = cardPhoto
+        ? `background-image:url('${cardPhoto}');`
         : `background:linear-gradient(135deg, ${s.color}, ${s.colorDark});`;
       const card = document.createElement('a');
       card.href = `service.html?id=${s.id}`;

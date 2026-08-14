@@ -328,7 +328,7 @@ const SECTORS = {
     cible: "Particuliers, familles et investisseurs achetant, vendant, héritant ou sécurisant un terrain au Togo.",
     horaires: null,
     localisation: null,
-    photos: ["efoncier-signature.jpg", "efoncier-terrain.jpg", "efoncier-1.jpg", "efoncier-2.jpg", "efoncier-3.jpg", "efoncier-4.jpg", "efoncier-5.jpg", "efoncier-6.jpg", "efoncier-7.jpg", "efoncier-8.jpg", "efoncier-9.jpg"],
+    photos: [],
     photosDir: "images/e-foncier/photos/",
     heroPhoto: "images/e-foncier/photos/efoncier-signature.jpg",
     videos: [],
