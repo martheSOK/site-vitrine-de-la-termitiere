@@ -1,0 +1,11 @@
+.git
+.github
+.gitignore
+
+README.md
+**/README.md
+
+oauth-proxy
+contact-proxy
+
+*.md

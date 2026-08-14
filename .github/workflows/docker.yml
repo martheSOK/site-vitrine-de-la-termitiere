@@ -1,0 +1,56 @@
+name: Build & Deploy Site Vitrine
+
+on:
+  push:
+    branches:
+      - docker-deployment
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    name: Build & Push Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          OWNER="${{ github.repository_owner }}"
+          OWNER_LOWER=$(echo "$OWNER" | tr '[:upper:]' '[:lower:]')
+          SHA=${GITHUB_SHA::7}
+
+          IMAGE_LATEST="ghcr.io/${OWNER_LOWER}/site-vitrine-de-la-termitiere:latest"
+          IMAGE_SHA="ghcr.io/${OWNER_LOWER}/site-vitrine-de-la-termitiere:${SHA}"
+
+          echo "Building:"
+          echo "$IMAGE_LATEST"
+          echo "$IMAGE_SHA"
+
+          docker build \
+            -t "$IMAGE_LATEST" \
+            -t "$IMAGE_SHA" \
+            .
+
+      - name: Push Docker images
+        run: |
+          OWNER="${{ github.repository_owner }}"
+          OWNER_LOWER=$(echo "$OWNER" | tr '[:upper:]' '[:lower:]')
+          SHA=${GITHUB_SHA::7}
+
+          docker push \
+            ghcr.io/${OWNER_LOWER}/site-vitrine-de-la-termitiere:latest
+
+          docker push \
+            ghcr.io/${OWNER_LOWER}/site-vitrine-de-la-termitiere:${SHA}
