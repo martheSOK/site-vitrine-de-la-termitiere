@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const logoBlock = s.logo
         ? `<img src="${s.logo}" alt="Logo ${s.name}">`
         : `<span class="letter-badge">${s.letter}</span>`;
-      const cardPhoto = s.heroPhoto || (s.photos && s.photos.length ? s.photosDir + s.photos[0] : null);
+      const cardPhoto = s.homeHeroPhoto || s.heroPhoto || (s.photos && s.photos.length ? s.photosDir + s.photos[0] : null);
       const photoStyle = cardPhoto
         ? `background-image:url('${cardPhoto}');`
         : `background:linear-gradient(135deg, ${s.color}, ${s.colorDark});`;
