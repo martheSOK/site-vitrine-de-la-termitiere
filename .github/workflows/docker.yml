@@ -9,13 +9,26 @@ permissions:
   contents: read
   packages: write
 
+env:
+  OWNER: marthesok
+
+  VITRINE_IMAGE: ghcr.io/marthesok/site-vitrine-de-la-termitiere
+  CONTACT_IMAGE: ghcr.io/marthesok/termitiere-contact-proxy
+  OAUTH_IMAGE: ghcr.io/marthesok/termitiere-oauth-proxy
+
 jobs:
+
+  # ============================================================
+  # BUILD & PUSH — 3 IMAGES
+  # ============================================================
+
   build:
-    name: Build & Push Docker Image
+    name: Build & Push Docker Images
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Login to GHCR
@@ -25,32 +38,236 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Docker image
+      # ----------------------------------------------------------
+      # VITRINE
+      # ----------------------------------------------------------
+
+      - name: Build & Push Vitrine
         run: |
-          OWNER="${{ github.repository_owner }}"
-          OWNER_LOWER=$(echo "$OWNER" | tr '[:upper:]' '[:lower:]')
-          SHA=${GITHUB_SHA::7}
+          set -e
 
-          IMAGE_LATEST="ghcr.io/${OWNER_LOWER}/site-vitrine-de-la-termitiere:latest"
-          IMAGE_SHA="ghcr.io/${OWNER_LOWER}/site-vitrine-de-la-termitiere:${SHA}"
-
-          echo "Building:"
-          echo "$IMAGE_LATEST"
-          echo "$IMAGE_SHA"
+          SHA="${GITHUB_SHA::7}"
 
           docker build \
-            -t "$IMAGE_LATEST" \
-            -t "$IMAGE_SHA" \
+            -t "${VITRINE_IMAGE}:${SHA}" \
+            -t "${VITRINE_IMAGE}:latest" \
             .
 
-      - name: Push Docker images
+          docker push "${VITRINE_IMAGE}:${SHA}"
+          docker push "${VITRINE_IMAGE}:latest"
+
+      # ----------------------------------------------------------
+      # CONTACT PROXY
+      # ----------------------------------------------------------
+
+      - name: Build & Push Contact Proxy
         run: |
-          OWNER="${{ github.repository_owner }}"
-          OWNER_LOWER=$(echo "$OWNER" | tr '[:upper:]' '[:lower:]')
-          SHA=${GITHUB_SHA::7}
+          set -e
 
-          docker push \
-            ghcr.io/${OWNER_LOWER}/site-vitrine-de-la-termitiere:latest
+          SHA="${GITHUB_SHA::7}"
 
-          docker push \
-            ghcr.io/${OWNER_LOWER}/site-vitrine-de-la-termitiere:${SHA}
+          docker build \
+            -t "${CONTACT_IMAGE}:${SHA}" \
+            -t "${CONTACT_IMAGE}:latest" \
+            ./contact-proxy
+
+          docker push "${CONTACT_IMAGE}:${SHA}"
+          docker push "${CONTACT_IMAGE}:latest"
+
+      # ----------------------------------------------------------
+      # OAUTH PROXY
+      # ----------------------------------------------------------
+
+      - name: Build & Push OAuth Proxy
+        run: |
+          set -e
+
+          SHA="${GITHUB_SHA::7}"
+
+          docker build \
+            -t "${OAUTH_IMAGE}:${SHA}" \
+            -t "${OAUTH_IMAGE}:latest" \
+            ./oauth-proxy
+
+          docker push "${OAUTH_IMAGE}:${SHA}"
+          docker push "${OAUTH_IMAGE}:latest"
+
+
+  # ============================================================
+  # DEPLOY VPS
+  # ============================================================
+
+  deploy:
+    name: Deploy Site Vitrine on VPS
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+
+      - name: Deploy on VPS
+        uses: appleboy/ssh-action@v1.0.3
+
+        env:
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: GHCR_TOKEN
+
+          script: |
+            set -e
+
+            PROJECT="/home/bawa/site-vitrine-de-la-termitiere"
+            SHA="${{ github.sha }}"
+            SHA="${SHA:0:7}"
+
+            cd "$PROJECT"
+
+            echo "======================================="
+            echo "Deploy Site Vitrine"
+            echo "Commit: $SHA"
+            echo "======================================="
+
+            # ----------------------------------------------------
+            # Vérification réseau partagé
+            # ----------------------------------------------------
+
+            echo "Checking deploy_default..."
+
+            docker network inspect deploy_default >/dev/null 2>&1
+
+            echo "✅ deploy_default exists."
+
+            # ----------------------------------------------------
+            # Login GHCR
+            # ----------------------------------------------------
+
+            echo "Login to GHCR..."
+
+            echo "$GHCR_TOKEN" | \
+              docker login ghcr.io \
+              -u "marthesok" \
+              --password-stdin
+
+            echo "✅ GHCR login successful."
+
+            # ----------------------------------------------------
+            # Mise à jour des tags dans .env
+            # ----------------------------------------------------
+
+            echo "Updating production images..."
+
+            sed -i \
+              "s|^VITRINE_IMAGE=.*|VITRINE_IMAGE=ghcr.io/marthesok/site-vitrine-de-la-termitiere:${SHA}|" \
+              deploy/.env
+
+            sed -i \
+              "s|^CONTACT_PROXY_IMAGE=.*|CONTACT_PROXY_IMAGE=ghcr.io/marthesok/termitiere-contact-proxy:${SHA}|" \
+              deploy/.env
+
+            sed -i \
+              "s|^OAUTH_PROXY_IMAGE=.*|OAUTH_PROXY_IMAGE=ghcr.io/marthesok/termitiere-oauth-proxy:${SHA}|" \
+              deploy/.env
+
+            echo "Images configured:"
+            grep -E '^(VITRINE_IMAGE|CONTACT_PROXY_IMAGE|OAUTH_PROXY_IMAGE)=' deploy/.env
+
+            # ----------------------------------------------------
+            # Validation Compose
+            # ----------------------------------------------------
+
+            echo "Validating Compose configuration..."
+
+            docker compose \
+              --env-file deploy/.env \
+              -f deploy/docker-compose.prod.yml \
+              config >/dev/null
+
+            echo "✅ Compose configuration valid."
+
+            # ----------------------------------------------------
+            # Pull images
+            # ----------------------------------------------------
+
+            echo "Pulling images..."
+
+            docker compose \
+              --env-file deploy/.env \
+              -f deploy/docker-compose.prod.yml \
+              pull
+
+            echo "✅ Images pulled."
+
+            # ----------------------------------------------------
+            # Deploy
+            # ----------------------------------------------------
+
+            echo "Starting services..."
+
+            docker compose \
+              --env-file deploy/.env \
+              -f deploy/docker-compose.prod.yml \
+              up -d --remove-orphans
+
+            echo "✅ Services started."
+
+            # ----------------------------------------------------
+            # Vérification
+            # ----------------------------------------------------
+
+            echo "Checking containers..."
+
+            docker ps \
+              --filter "name=^/termitiere-vitrine$" \
+              --filter "name=^/termitiere-contact-proxy$" \
+              --filter "name=^/termitiere-oauth-proxy$"
+
+            # ----------------------------------------------------
+            # Vérification réseau
+            # ----------------------------------------------------
+
+            echo "Checking network..."
+
+            for CONTAINER in \
+              termitiere-vitrine \
+              termitiere-contact-proxy \
+              termitiere-oauth-proxy
+            do
+              docker inspect "$CONTAINER" \
+                --format '{{json .NetworkSettings.Networks}}' |
+                grep -q "deploy_default"
+
+              echo "✅ $CONTAINER connected to deploy_default."
+            done
+
+            # ----------------------------------------------------
+            # Health checks internes
+            # ----------------------------------------------------
+
+            echo "Checking vitrine..."
+
+            docker exec termitiere-vitrine \
+              wget -qO- http://localhost:80 >/dev/null
+
+            echo "✅ Vitrine OK."
+
+            echo "Checking contact proxy..."
+
+            docker exec termitiere-contact-proxy \
+              wget -qO- http://localhost:8081 >/dev/null || true
+
+            echo "Contact proxy container OK."
+
+            echo "Checking oauth proxy..."
+
+            docker exec termitiere-oauth-proxy \
+              wget -qO- http://localhost:8080 >/dev/null || true
+
+            echo "OAuth proxy container OK."
+
+            echo "======================================="
+            echo "✅ DEPLOYMENT COMPLETE"
+            echo "Commit: $SHA"
+            echo "======================================="
