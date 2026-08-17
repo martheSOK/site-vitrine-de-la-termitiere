@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ---------- Formulaire de contact (Formspree) ---------- */
+  /* ---------- Formulaire de contact ---------- */
   const form = document.getElementById('contact-form');
   const formFeedback = document.getElementById('form-feedback');
   if (form) {
@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
       formFeedback.textContent = 'Envoi en cours…';
       formFeedback.style.color = '';
 
-      fetch('https://formspree.io/f/xjybrqvq', {
+      fetch('https://contact.latermitiere.com/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(formData),

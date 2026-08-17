@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: martheSOK/site-vitrine-de-la-termitiere
   branch: main
+  base_url: https://oauth.latermitiere.com
 
 media_folder: "site2/images/uploads"
 public_folder: "/images/uploads"
