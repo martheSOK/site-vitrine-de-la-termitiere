@@ -166,8 +166,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     SECTOR_ORDER.forEach((id) => {
       const s = SECTORS[id];
-      if (!s.photos || !s.photos.length || s.heroSkip) return;
-      const photo = s.heroPhoto || (s.photosDir + s.photos[0]);
+      if (s.heroSkip) return;
+      const photo = s.homeHeroPhoto || s.heroPhoto || (s.photos && s.photos.length ? s.photosDir + s.photos[0] : null);
+      if (!photo) return;
       const slide = document.createElement('div');
       slide.className = 'hero-bg-slide';
       slide.style.backgroundImage = `url('${photo}')`;
@@ -214,9 +215,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const logoBlock = s.logo
         ? `<img src="${s.logo}" alt="Logo ${s.name}">`
         : `<span class="letter-badge">${s.letter}</span>`;
-      const hasPhoto = s.photos && s.photos.length > 0;
-      const photoStyle = hasPhoto
-        ? `background-image:url('${s.photosDir}${s.photos[0]}');`
+      const cardPhoto = s.homeHeroPhoto || s.heroPhoto || (s.photos && s.photos.length ? s.photosDir + s.photos[0] : null);
+      const photoStyle = cardPhoto
+        ? `background-image:url('${cardPhoto}');`
         : `background:linear-gradient(135deg, ${s.color}, ${s.colorDark});`;
       const card = document.createElement('a');
       card.href = `service.html?id=${s.id}`;
