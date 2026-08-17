@@ -15,6 +15,7 @@ env:
   VITRINE_IMAGE: ghcr.io/marthesok/site-vitrine-de-la-termitiere
   CONTACT_IMAGE: ghcr.io/marthesok/termitiere-contact-proxy
   OAUTH_IMAGE: ghcr.io/marthesok/termitiere-oauth-proxy
+  PUBLISH_IMAGE: ghcr.io/marthesok/termitiere-publish-proxy
 
 jobs:
 
@@ -91,6 +92,24 @@ jobs:
 
           docker push "${OAUTH_IMAGE}:${SHA}"
           docker push "${OAUTH_IMAGE}:latest"
+
+      # ----------------------------------------------------------
+      # PUBLISH PROXY
+      # ----------------------------------------------------------
+
+      - name: Build & Push Publish Proxy
+        run: |
+          set -e
+
+          SHA="${GITHUB_SHA::7}"
+
+          docker build \
+            -t "${PUBLISH_IMAGE}:${SHA}" \
+            -t "${PUBLISH_IMAGE}:latest" \
+            ./publish-proxy
+
+          docker push "${PUBLISH_IMAGE}:${SHA}"
+          docker push "${PUBLISH_IMAGE}:latest"
 
 
   # ============================================================
@@ -171,8 +190,12 @@ jobs:
               "s|^OAUTH_PROXY_IMAGE=.*|OAUTH_PROXY_IMAGE=ghcr.io/marthesok/termitiere-oauth-proxy:${SHA}|" \
               deploy/.env
 
+            sed -i \
+              "s|^PUBLISH_PROXY_IMAGE=.*|PUBLISH_PROXY_IMAGE=ghcr.io/marthesok/termitiere-publish-proxy:${SHA}|" \
+              deploy/.env
+
             echo "Images configured:"
-            grep -E '^(VITRINE_IMAGE|CONTACT_PROXY_IMAGE|OAUTH_PROXY_IMAGE)=' deploy/.env
+            grep -E '^(VITRINE_IMAGE|CONTACT_PROXY_IMAGE|OAUTH_PROXY_IMAGE|PUBLISH_PROXY_IMAGE)=' deploy/.env
 
             # ----------------------------------------------------
             # Validation Compose
@@ -222,7 +245,8 @@ jobs:
             docker ps \
               --filter "name=^/termitiere-vitrine$" \
               --filter "name=^/termitiere-contact-proxy$" \
-              --filter "name=^/termitiere-oauth-proxy$"
+              --filter "name=^/termitiere-oauth-proxy$" \
+              --filter "name=^/termitiere-publish-proxy$"
 
             # ----------------------------------------------------
             # Vérification réseau
@@ -233,7 +257,8 @@ jobs:
             for CONTAINER in \
               termitiere-vitrine \
               termitiere-contact-proxy \
-              termitiere-oauth-proxy
+              termitiere-oauth-proxy \
+              termitiere-publish-proxy
             do
               docker inspect "$CONTAINER" \
                 --format '{{json .NetworkSettings.Networks}}' |
@@ -266,6 +291,13 @@ jobs:
               wget -qO- http://localhost:8080 >/dev/null || true
 
             echo "OAuth proxy container OK."
+
+            echo "Checking publish proxy..."
+
+            docker exec termitiere-publish-proxy \
+              wget -qO- http://localhost:8082/health >/dev/null || true
+
+            echo "Publish proxy container OK."
 
             echo "======================================="
             echo "✅ DEPLOYMENT COMPLETE"

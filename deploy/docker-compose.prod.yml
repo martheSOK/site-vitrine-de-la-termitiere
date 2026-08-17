@@ -59,6 +59,29 @@ services:
       - deploy_default
 
 
+  # ============================================================
+  # PUBLISH PROXY (offres / promotions, sans compte GitHub)
+  # ============================================================
+
+  publish-proxy:
+    image: ${PUBLISH_PROXY_IMAGE}
+
+    container_name: termitiere-publish-proxy
+
+    restart: unless-stopped
+
+    environment:
+      PORT: "8082"
+      GITHUB_TOKEN: "${PUBLISH_GITHUB_TOKEN}"
+      GITHUB_REPO: "${PUBLISH_GITHUB_REPO:-martheSOK/site-vitrine-de-la-termitiere}"
+      GITHUB_BRANCH: "${PUBLISH_GITHUB_BRANCH:-main}"
+      SESSION_SECRET: "${PUBLISH_SESSION_SECRET}"
+      USERS_JSON: "${PUBLISH_USERS_JSON}"
+
+    networks:
+      - deploy_default
+
+
 # ==============================================================
 # RESEAU PARTAGE AVEC TERMITIERE-PLATFORM
 # ==============================================================

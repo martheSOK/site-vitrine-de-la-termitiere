@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex" />
+<title>Publier une offre ou une promotion — La Termitière</title>
+<style>
+  :root { --accent: #BD3C2F; --bg: #f6f4f1; --card: #ffffff; --text: #2a2a2a; --muted: #6b6b6b; --border: #e2ddd6; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Arial, sans-serif; background: var(--bg); color: var(--text); }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 1.4rem; margin: 0 0 4px; }
+  p.sub { color: var(--muted); margin: 0 0 28px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+  label { display: block; font-size: 0.85rem; font-weight: 600; margin: 14px 0 6px; }
+  label:first-child { margin-top: 0; }
+  input, select, textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; font-family: inherit; background: #fff; }
+  textarea { resize: vertical; min-height: 70px; }
+  button { cursor: pointer; border: none; border-radius: 8px; padding: 11px 20px; font-size: 0.95rem; font-weight: 600; }
+  .btn-primary { background: var(--accent); color: #fff; width: 100%; margin-top: 18px; }
+  .btn-primary:disabled { opacity: 0.6; cursor: wait; }
+  .btn-link { background: none; color: var(--muted); text-decoration: underline; padding: 0; font-weight: 400; }
+  .tabs { display: flex; gap: 8px; margin-bottom: 18px; }
+  .tab { flex: 1; padding: 10px; text-align: center; border-radius: 8px; border: 1px solid var(--border); background: #fff; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+  .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .msg { margin-top: 14px; font-size: 0.9rem; padding: 10px 12px; border-radius: 8px; display: none; }
+  .msg.ok { display: block; background: #e6f4ea; color: #1e7a34; }
+  .msg.err { display: block; background: #fdecea; color: #b3261e; }
+  .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div id="login-view">
+    <h1>Espace de publication</h1>
+    <p class="sub">Connecte-toi pour publier une offre d'emploi ou une promotion.</p>
+    <div class="card">
+      <form id="login-form">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" required autocomplete="username" />
+        <label for="login-password">Mot de passe</label>
+        <input id="login-password" type="password" required autocomplete="current-password" />
+        <button class="btn-primary" type="submit">Se connecter</button>
+        <div id="login-msg" class="msg"></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="app-view" hidden>
+    <div class="topbar">
+      <div>
+        <h1>Publier</h1>
+        <p class="sub" id="who"></p>
+      </div>
+      <button class="btn-link" id="logout-btn" type="button">Se déconnecter</button>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" data-tab="offre">Offre d'emploi</div>
+      <div class="tab" data-tab="promotion">Promotion</div>
+    </div>
+
+    <div class="card" id="offre-card">
+      <form id="offre-form">
+        <label for="o-title">Titre du poste *</label>
+        <input id="o-title" name="title" required />
+
+        <label for="o-type">Type de contrat *</label>
+        <select id="o-type" name="type" required>
+          <option value="CDI">CDI</option>
+          <option value="CDD">CDD</option>
+          <option value="Stage">Stage</option>
+          <option value="Bénévolat">Bénévolat</option>
+        </select>
+
+        <label for="o-sector">Secteur concerné</label>
+        <select id="o-sector" name="sector"><option value="">— Aucun —</option></select>
+
+        <label for="o-location">Lieu</label>
+        <input id="o-location" name="location" />
+
+        <label for="o-description">Description</label>
+        <textarea id="o-description" name="description"></textarea>
+
+        <label for="o-date">Date limite de candidature</label>
+        <input id="o-date" name="dateLimite" type="date" />
+
+        <label for="o-photo">Photo (facultatif)</label>
+        <input id="o-photo" name="photo" type="file" accept="image/*" />
+
+        <button class="btn-primary" type="submit">Publier l'offre</button>
+        <div id="offre-msg" class="msg"></div>
+      </form>
+    </div>
+
+    <div class="card" id="promotion-card" hidden>
+      <form id="promotion-form">
+        <label for="p-title">Titre *</label>
+        <input id="p-title" name="title" required />
+
+        <label for="p-sector">Secteur concerné</label>
+        <select id="p-sector" name="sector"><option value="">— Aucun —</option></select>
+
+        <label for="p-description">Description</label>
+        <textarea id="p-description" name="description"></textarea>
+
+        <label for="p-date">Valable jusqu'au</label>
+        <input id="p-date" name="validUntil" type="date" />
+
+        <label for="p-photo">Photo (facultatif)</label>
+        <input id="p-photo" name="photo" type="file" accept="image/*" />
+
+        <button class="btn-primary" type="submit">Publier la promotion</button>
+        <div id="promotion-msg" class="msg"></div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const loginView = document.getElementById('login-view');
+const appView = document.getElementById('app-view');
+const who = document.getElementById('who');
+
+function showMsg(el, text, ok) {
+  el.textContent = text;
+  el.className = 'msg ' + (ok ? 'ok' : 'err');
+}
+
+let sectorsFilled = false;
+
+function fillSectorOptions(sectors) {
+  if (sectorsFilled) return;
+  sectorsFilled = true;
+  document.querySelectorAll('#o-sector, #p-sector').forEach((select) => {
+    sectors.forEach((s) => {
+      const opt = document.createElement('option');
+      opt.value = s.value;
+      opt.textContent = s.label;
+      select.appendChild(opt);
+    });
+  });
+}
+
+async function refreshSession() {
+  const res = await fetch('/api/session', { credentials: 'same-origin' });
+  const data = await res.json();
+  fillSectorOptions(data.sectors || []);
+  if (data.email) {
+    loginView.hidden = true;
+    appView.hidden = false;
+    who.textContent = 'Connectée en tant que ' + data.email;
+  } else {
+    loginView.hidden = false;
+    appView.hidden = true;
+  }
+}
+
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  const msg = document.getElementById('login-msg');
+  msg.className = 'msg';
+  try {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+    if (!res.ok) { showMsg(msg, data.error || 'Erreur de connexion.', false); return; }
+    await refreshSession();
+  } catch (err) {
+    showMsg(msg, 'Erreur réseau, réessaie.', false);
+  }
+});
+
+document.getElementById('logout-btn').addEventListener('click', async () => {
+  await fetch('/api/logout', { method: 'POST', credentials: 'same-origin' });
+  await refreshSession();
+});
+
+document.querySelectorAll('.tab').forEach((tab) => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach((t) => t.classList.remove('active'));
+    tab.classList.add('active');
+    const isOffre = tab.dataset.tab === 'offre';
+    document.getElementById('offre-card').hidden = !isOffre;
+    document.getElementById('promotion-card').hidden = isOffre;
+  });
+});
+
+async function submitForm(formId, endpoint, msgId) {
+  const form = document.getElementById(formId);
+  const msg = document.getElementById(msgId);
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    msg.className = 'msg';
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: new FormData(form),
+      });
+      const data = await res.json();
+      if (!res.ok) { showMsg(msg, data.error || 'Échec de la publication.', false); return; }
+      showMsg(msg, 'Publié avec succès ! Ça peut prendre une minute à apparaître sur le site.', true);
+      form.reset();
+    } catch (err) {
+      showMsg(msg, 'Erreur réseau, réessaie.', false);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+}
+
+submitForm('offre-form', '/api/offres', 'offre-msg');
+submitForm('promotion-form', '/api/promotions', 'promotion-msg');
+
+refreshSession();
+</script>
+</body>
+</html>
