@@ -27,6 +27,7 @@ if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET) {
 }
 
 const app = express();
+app.set('trust proxy', true);
 
 // L'etat CSRF est garde en memoire (un seul processus, usage faible volume : admin uniquement)
 const pendingStates = new Set();

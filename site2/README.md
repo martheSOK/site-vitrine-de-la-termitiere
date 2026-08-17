@@ -35,9 +35,15 @@ Ouvrez `index.html` dans votre navigateur pour un premier aperçu.
 
 ## Déployer (rappel)
 
-Glissez-déposez le dossier complet sur **https://app.netlify.com/drop** — HTTPS
-automatique, aucune ligne de commande. Le formulaire de contact fonctionne dès
-le déploiement (voir Site settings → Forms → Form notifications dans Netlify).
+Le site n'est plus hébergé sur Netlify : il est déployé via Docker (voir
+`Dockerfile` et `deploy/docker-compose.prod.yml` à la racine du dépôt), avec
+deux services associés :
+- `oauth-proxy/` — authentification GitHub pour l'espace d'administration (`/admin`),
+  remplace Netlify Identity + Git Gateway.
+- `contact-proxy/` — envoi des emails du formulaire de contact via Brevo,
+  remplace Netlify Forms.
+
+Le déploiement se fait automatiquement via GitHub Actions (`.github/workflows/docker.yml`).
 
 ## Ce qui n'a pas changé
 
