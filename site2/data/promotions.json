@@ -6,6 +6,12 @@
       "description": "Offre valable pour toute nouvelle inscription ce mois-ci. Accès illimité à la salle et aux cours collectifs.",
       "validUntil": "2026-08-20",
       "photo": "/images/uploads/salle-de-sport-22.jpg"
+    },
+    {
+      "title": "Promotion rentrée La Garderie",
+      "sector": "garderie",
+      "validUntil": "2026-09-06",
+      "photo": "/images/uploads/garderie-2.jpg"
     }
   ]
 }
