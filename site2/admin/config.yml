@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: martheSOK/site-vitrine-de-la-termitiere
-  branch: main
+  branch: docker-deployment
   base_url: https://oauth.latermitiere.com
 
 media_folder: "site2/images/uploads"

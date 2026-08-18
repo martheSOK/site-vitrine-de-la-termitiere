@@ -74,7 +74,7 @@ services:
       PORT: "8082"
       GITHUB_TOKEN: "${PUBLISH_GITHUB_TOKEN}"
       GITHUB_REPO: "${PUBLISH_GITHUB_REPO:-martheSOK/site-vitrine-de-la-termitiere}"
-      GITHUB_BRANCH: "${PUBLISH_GITHUB_BRANCH:-main}"
+      GITHUB_BRANCH: "${PUBLISH_GITHUB_BRANCH:-docker-deployment}"
       SESSION_SECRET: "${PUBLISH_SESSION_SECRET}"
       USERS_JSON: "${PUBLISH_USERS_JSON}"
 

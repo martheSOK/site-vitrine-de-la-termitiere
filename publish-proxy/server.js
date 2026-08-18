@@ -12,7 +12,7 @@
      USERS_JSON      (tableau JSON [{"email":"...","passwordHash":"$2a$..."}])
    Optionnelles :
      PORT (defaut 8082)
-     GITHUB_BRANCH (defaut "main")
+     GITHUB_BRANCH (defaut "docker-deployment" - la branche reellement deployee)
      COOKIE_SECURE (defaut "true" ; mettre "false" uniquement pour tester
        en local sans HTTPS - a laisser sur "true" en production)
    ========================================================= */
@@ -29,7 +29,7 @@ const {
   SESSION_SECRET,
   USERS_JSON,
   PORT = 8082,
-  GITHUB_BRANCH = 'main',
+  GITHUB_BRANCH = 'docker-deployment',
   COOKIE_SECURE = 'true',
 } = process.env;
 
