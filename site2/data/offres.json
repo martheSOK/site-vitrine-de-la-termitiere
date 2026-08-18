@@ -7,6 +7,14 @@
       "location": "Lomé",
       "sector": "garderie",
       "dateLimite": "2026-09-06"
+    },
+    {
+      "title": "Chauffeur-livreur",
+      "description": "Livraison de marchandises sur Lomé et environs. Permis B obligatoire, expérience en conduite professionnelle appréciée.",
+      "type": "CDD",
+      "sector": "logistique",
+      "location": "Lomé",
+      "dateLimite": "2026-10-10"
     }
   ]
 }
