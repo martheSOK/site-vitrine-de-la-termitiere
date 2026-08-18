@@ -19,6 +19,12 @@
       "sector": "briqueterie",
       "validUntil": "2026-09-09",
       "photo": "/images/uploads/briqueterie-1.jpg"
+    },
+    {
+      "title": "Promotion test expirée",
+      "description": "Ceci est un test pour vérifier qu'une promotion expirée ne s'affiche plus.",
+      "sector": "batiment",
+      "validUntil": "2026-08-11"
     }
   ]
 }
