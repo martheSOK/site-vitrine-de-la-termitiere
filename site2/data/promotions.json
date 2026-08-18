@@ -1,17 +1,23 @@
 {
   "items": [
     {
-      "title": "20% sur l'abonnement mensuel Maxi Gym",
-      "sector": "sport",
-      "description": "Offre valable pour toute nouvelle inscription ce mois-ci. Accès illimité à la salle et aux cours collectifs.",
-      "validUntil": "2026-08-20",
-      "photo": "/images/uploads/salle-de-sport-22.jpg"
-    },
-    {
       "title": "Promotion rentrée La Garderie",
       "sector": "garderie",
       "validUntil": "2026-09-06",
       "photo": "/images/uploads/garderie-2.jpg"
+    },
+    {
+      "title": "Briques à prix réduit pour les commandes en gros",
+      "description": "15% sur toute commande de plus de 500 briques ce mois-ci. Livraison possible sur Lomé et environs.",
+      "sector": "briqueterie",
+      "validUntil": "2026-09-09",
+      "photo": "/images/uploads/briqueterie-1.jpg"
+    },
+    {
+      "title": "Promotion test expirée",
+      "description": "Ceci est un test pour vérifier qu'une promotion expirée ne s'affiche plus.",
+      "sector": "batiment",
+      "validUntil": "2026-08-11"
     }
   ]
 }
