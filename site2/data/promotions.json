@@ -12,6 +12,13 @@
       "sector": "garderie",
       "validUntil": "2026-09-06",
       "photo": "/images/uploads/garderie-2.jpg"
+    },
+    {
+      "title": "Briques à prix réduit pour les commandes en gros",
+      "description": "15% sur toute commande de plus de 500 briques ce mois-ci. Livraison possible sur Lomé et environs.",
+      "sector": "briqueterie",
+      "validUntil": "2026-09-09",
+      "photo": "/images/uploads/briqueterie-1.jpg"
     }
   ]
 }
