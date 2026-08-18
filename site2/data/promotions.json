@@ -1,3 +1,11 @@
 {
-  "items": []
+  "items": [
+    {
+      "title": "20% sur l'abonnement mensuel Maxi Gym",
+      "sector": "sport",
+      "description": "Offre valable pour toute nouvelle inscription ce mois-ci. Accès illimité à la salle et aux cours collectifs.",
+      "validUntil": "2026-08-20",
+      "photo": "/images/uploads/salle-de-sport-22.jpg"
+    }
+  ]
 }
