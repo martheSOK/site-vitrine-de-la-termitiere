@@ -1,6 +1,15 @@
 {
   "items": [
     {
+      "title": "Éleveur / Technicien agro-pastoral",
+      "type": "CDI",
+      "location": "Agbelouvé.",
+      "sector": "agro",
+      "description": "Recherche technicien pour le suivi du cheptel et des cultures. Connaissances en élevage et agriculture souhaitées.",
+      "dateLimite": "2026-08-19",
+      "photo": "/images/uploads/1787219257919-maxi-agro-13.jpg"
+    },
+    {
       "title": "Animateur activités enfants",
       "type": "Bénévolat",
       "description": "Recherche bénévole motivé pour animer des activités ludiques et éducatives auprès des enfants les week-ends.",
