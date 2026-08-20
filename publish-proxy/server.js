@@ -1,9 +1,9 @@
 /* =========================================================
    Espace de publication simplifie (sans compte GitHub)
-   Permet a du personnel non technique de publier des offres
-   d'emploi et des promotions via un simple email + mot de passe.
-   Ecrit directement dans le depot GitHub avec un jeton technique
-   unique, cote serveur uniquement.
+   Permet a du personnel non technique de publier, modifier et
+   supprimer des offres d'emploi et des promotions via un simple
+   email + mot de passe. Ecrit directement dans le depot GitHub
+   avec un jeton technique unique, cote serveur uniquement.
 
    Variables d'environnement requises :
      GITHUB_TOKEN    (PAT "fine-grained", Contents: Read/Write sur CE depot uniquement)
@@ -57,6 +57,21 @@ const SECTORS = [
   { value: 'cosmetique', label: 'Maxi Cosmétique' },
 ];
 
+const COLLECTIONS = {
+  offres: {
+    file: 'site2/data/offres.json',
+    label: 'offre',
+    requiredFields: ['title', 'type'],
+    fields: ['title', 'type', 'location', 'sector', 'description', 'dateLimite'],
+  },
+  promotions: {
+    file: 'site2/data/promotions.json',
+    label: 'promotion',
+    requiredFields: ['title'],
+    fields: ['title', 'sector', 'description', 'validUntil'],
+  },
+};
+
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 },
@@ -81,6 +96,16 @@ function requireAuth(req, res, next) {
     res.status(401).json({ ok: false, error: 'Non connecte.' });
     return;
   }
+  next();
+}
+
+function requireCollection(req, res, next) {
+  const collection = COLLECTIONS[req.params.collection];
+  if (!collection) {
+    res.status(404).json({ ok: false, error: 'Collection inconnue.' });
+    return;
+  }
+  req.collection = collection;
   next();
 }
 
@@ -158,12 +183,15 @@ async function uploadPhoto(file) {
   return `/images/uploads/${filename}`;
 }
 
-async function appendItem(dataFilePath, item, commitMessage) {
-  const existing = await githubGetFile(dataFilePath);
+async function readCollection(file) {
+  const existing = await githubGetFile(file);
   const data = existing ? JSON.parse(existing.content.toString('utf8')) : { items: [] };
-  data.items.unshift(item);
-  const newContent = Buffer.from(`${JSON.stringify(data, null, 2)}\n`, 'utf8');
-  await githubPutFile(dataFilePath, newContent, commitMessage, existing ? existing.sha : undefined);
+  return { sha: existing ? existing.sha : undefined, items: data.items || [] };
+}
+
+async function writeCollection(file, items, sha, message) {
+  const newContent = Buffer.from(`${JSON.stringify({ items }, null, 2)}\n`, 'utf8');
+  await githubPutFile(file, newContent, message, sha);
 }
 
 function cleanItem(item) {
@@ -171,18 +199,36 @@ function cleanItem(item) {
   return item;
 }
 
-/* ---------- Publication ---------- */
+function pickFields(body, fields) {
+  return cleanItem(Object.fromEntries(fields.map((f) => [f, body[f]])));
+}
 
-app.post('/api/offres', requireAuth, upload.single('photo'), async (req, res) => {
-  const { title, type, location, sector, description, dateLimite } = req.body || {};
-  if (!title || !type) {
-    res.status(400).json({ ok: false, error: 'Titre et type de contrat obligatoires.' });
+/* ---------- Liste / publication / modification / suppression ---------- */
+
+app.get('/api/:collection', requireAuth, requireCollection, async (req, res) => {
+  try {
+    const { items } = await readCollection(req.collection.file);
+    res.json({ ok: true, items });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: 'Echec de la lecture.' });
+  }
+});
+
+app.post('/api/:collection', requireAuth, requireCollection, upload.single('photo'), async (req, res) => {
+  const col = req.collection;
+  const body = req.body || {};
+  const missing = col.requiredFields.filter((f) => !body[f]);
+  if (missing.length) {
+    res.status(400).json({ ok: false, error: `Champ(s) obligatoire(s) manquant(s) : ${missing.join(', ')}.` });
     return;
   }
   try {
-    const item = cleanItem({ title, type, location, sector, description, dateLimite });
+    const item = pickFields(body, col.fields);
     if (req.file) item.photo = await uploadPhoto(req.file);
-    await appendItem('site2/data/offres.json', item, `Ajoute une offre : ${title} (via ${req.session.email})`);
+    const { sha, items } = await readCollection(col.file);
+    items.unshift(item);
+    await writeCollection(col.file, items, sha, `Ajoute une ${col.label} : ${item.title} (via ${req.session.email})`);
     res.json({ ok: true });
   } catch (err) {
     console.error(err);
@@ -190,20 +236,48 @@ app.post('/api/offres', requireAuth, upload.single('photo'), async (req, res) =>
   }
 });
 
-app.post('/api/promotions', requireAuth, upload.single('photo'), async (req, res) => {
-  const { title, sector, description, validUntil } = req.body || {};
-  if (!title) {
-    res.status(400).json({ ok: false, error: 'Titre obligatoire.' });
+app.put('/api/:collection/:index', requireAuth, requireCollection, upload.single('photo'), async (req, res) => {
+  const col = req.collection;
+  const body = req.body || {};
+  const index = Number(req.params.index);
+  const missing = col.requiredFields.filter((f) => !body[f]);
+  if (missing.length) {
+    res.status(400).json({ ok: false, error: `Champ(s) obligatoire(s) manquant(s) : ${missing.join(', ')}.` });
     return;
   }
   try {
-    const item = cleanItem({ title, sector, description, validUntil });
-    if (req.file) item.photo = await uploadPhoto(req.file);
-    await appendItem('site2/data/promotions.json', item, `Ajoute une promotion : ${title} (via ${req.session.email})`);
+    const { sha, items } = await readCollection(col.file);
+    if (!Number.isInteger(index) || index < 0 || index >= items.length) {
+      res.status(404).json({ ok: false, error: 'Cette entree a change entre-temps, recharge la liste.' });
+      return;
+    }
+    const updated = pickFields(body, col.fields);
+    updated.photo = req.file ? await uploadPhoto(req.file) : items[index].photo;
+    cleanItem(updated);
+    items[index] = updated;
+    await writeCollection(col.file, items, sha, `Modifie une ${col.label} : ${updated.title} (via ${req.session.email})`);
     res.json({ ok: true });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ ok: false, error: 'Echec de la publication.' });
+    res.status(500).json({ ok: false, error: 'Echec de la modification.' });
+  }
+});
+
+app.delete('/api/:collection/:index', requireAuth, requireCollection, async (req, res) => {
+  const col = req.collection;
+  const index = Number(req.params.index);
+  try {
+    const { sha, items } = await readCollection(col.file);
+    if (!Number.isInteger(index) || index < 0 || index >= items.length) {
+      res.status(404).json({ ok: false, error: 'Cette entree a change entre-temps, recharge la liste.' });
+      return;
+    }
+    const [removed] = items.splice(index, 1);
+    await writeCollection(col.file, items, sha, `Supprime une ${col.label} : ${removed.title} (via ${req.session.email})`);
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: 'Echec de la suppression.' });
   }
 });
 

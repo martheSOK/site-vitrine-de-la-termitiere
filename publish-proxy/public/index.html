@@ -11,6 +11,7 @@
   body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Arial, sans-serif; background: var(--bg); color: var(--text); }
   .wrap { max-width: 560px; margin: 0 auto; padding: 32px 20px 80px; }
   h1 { font-size: 1.4rem; margin: 0 0 4px; }
+  h2 { font-size: 1.05rem; margin: 28px 0 12px; }
   p.sub { color: var(--muted); margin: 0 0 28px; }
   .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
   label { display: block; font-size: 0.85rem; font-weight: 600; margin: 14px 0 6px; }
@@ -20,7 +21,8 @@
   button { cursor: pointer; border: none; border-radius: 8px; padding: 11px 20px; font-size: 0.95rem; font-weight: 600; }
   .btn-primary { background: var(--accent); color: #fff; width: 100%; margin-top: 18px; }
   .btn-primary:disabled { opacity: 0.6; cursor: wait; }
-  .btn-link { background: none; color: var(--muted); text-decoration: underline; padding: 0; font-weight: 400; }
+  .btn-link { background: none; color: var(--muted); text-decoration: underline; padding: 0; font-weight: 400; font-size: 0.85rem; }
+  .btn-cancel { background: none; color: var(--muted); border: 1px solid var(--border); width: 100%; margin-top: 8px; }
   .tabs { display: flex; gap: 8px; margin-bottom: 18px; }
   .tab { flex: 1; padding: 10px; text-align: center; border-radius: 8px; border: 1px solid var(--border); background: #fff; cursor: pointer; font-weight: 600; font-size: 0.9rem; }
   .tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
@@ -28,6 +30,15 @@
   .msg.ok { display: block; background: #e6f4ea; color: #1e7a34; }
   .msg.err { display: block; background: #fdecea; color: #b3261e; }
   .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .editing-banner { background: #fff4e5; color: #8a5a00; border-radius: 8px; padding: 8px 12px; font-size: 0.85rem; margin-bottom: 14px; display: none; }
+  .list-empty { color: var(--muted); font-size: 0.9rem; }
+  .item-card { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; background: #fff; }
+  .item-title { font-weight: 600; }
+  .item-meta { color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
+  .item-actions { display: flex; gap: 14px; margin-top: 10px; }
+  .item-actions button { padding: 4px 0; font-size: 0.85rem; font-weight: 600; background: none; }
+  .item-actions .edit-btn { color: var(--accent); }
+  .item-actions .delete-btn { color: #b3261e; }
   [hidden] { display: none !important; }
 </style>
 </head>
@@ -63,59 +74,73 @@
       <div class="tab" data-tab="promotion">Promotion</div>
     </div>
 
-    <div class="card" id="offre-card">
-      <form id="offre-form">
-        <label for="o-title">Titre du poste *</label>
-        <input id="o-title" name="title" required />
+    <div id="offre-card">
+      <div class="card">
+        <div class="editing-banner" id="offre-editing-banner">Modification d'une offre existante.</div>
+        <form id="offre-form">
+          <label for="o-title">Titre du poste *</label>
+          <input id="o-title" name="title" required />
 
-        <label for="o-type">Type de contrat *</label>
-        <select id="o-type" name="type" required>
-          <option value="CDI">CDI</option>
-          <option value="CDD">CDD</option>
-          <option value="Stage">Stage</option>
-          <option value="Bénévolat">Bénévolat</option>
-        </select>
+          <label for="o-type">Type de contrat *</label>
+          <select id="o-type" name="type" required>
+            <option value="CDI">CDI</option>
+            <option value="CDD">CDD</option>
+            <option value="Stage">Stage</option>
+            <option value="Bénévolat">Bénévolat</option>
+          </select>
 
-        <label for="o-sector">Secteur concerné</label>
-        <select id="o-sector" name="sector"><option value="">— Aucun —</option></select>
+          <label for="o-sector">Secteur concerné</label>
+          <select id="o-sector" name="sector"><option value="">— Aucun —</option></select>
 
-        <label for="o-location">Lieu</label>
-        <input id="o-location" name="location" />
+          <label for="o-location">Lieu</label>
+          <input id="o-location" name="location" />
 
-        <label for="o-description">Description</label>
-        <textarea id="o-description" name="description"></textarea>
+          <label for="o-description">Description</label>
+          <textarea id="o-description" name="description"></textarea>
 
-        <label for="o-date">Date limite de candidature</label>
-        <input id="o-date" name="dateLimite" type="date" />
+          <label for="o-date">Date limite de candidature</label>
+          <input id="o-date" name="dateLimite" type="date" />
 
-        <label for="o-photo">Photo (facultatif)</label>
-        <input id="o-photo" name="photo" type="file" accept="image/*" />
+          <label for="o-photo">Photo (facultatif)</label>
+          <input id="o-photo" name="photo" type="file" accept="image/*" />
 
-        <button class="btn-primary" type="submit">Publier l'offre</button>
-        <div id="offre-msg" class="msg"></div>
-      </form>
+          <button class="btn-primary" type="submit" id="offre-submit">Publier l'offre</button>
+          <button class="btn-cancel" type="button" id="offre-cancel" hidden>Annuler la modification</button>
+          <div id="offre-msg" class="msg"></div>
+        </form>
+      </div>
+
+      <h2>Offres publiées</h2>
+      <div id="offre-list"></div>
     </div>
 
-    <div class="card" id="promotion-card" hidden>
-      <form id="promotion-form">
-        <label for="p-title">Titre *</label>
-        <input id="p-title" name="title" required />
+    <div id="promotion-card" hidden>
+      <div class="card">
+        <div class="editing-banner" id="promotion-editing-banner">Modification d'une promotion existante.</div>
+        <form id="promotion-form">
+          <label for="p-title">Titre *</label>
+          <input id="p-title" name="title" required />
 
-        <label for="p-sector">Secteur concerné</label>
-        <select id="p-sector" name="sector"><option value="">— Aucun —</option></select>
+          <label for="p-sector">Secteur concerné</label>
+          <select id="p-sector" name="sector"><option value="">— Aucun —</option></select>
 
-        <label for="p-description">Description</label>
-        <textarea id="p-description" name="description"></textarea>
+          <label for="p-description">Description</label>
+          <textarea id="p-description" name="description"></textarea>
 
-        <label for="p-date">Valable jusqu'au</label>
-        <input id="p-date" name="validUntil" type="date" />
+          <label for="p-date">Valable jusqu'au</label>
+          <input id="p-date" name="validUntil" type="date" />
 
-        <label for="p-photo">Photo (facultatif)</label>
-        <input id="p-photo" name="photo" type="file" accept="image/*" />
+          <label for="p-photo">Photo (facultatif)</label>
+          <input id="p-photo" name="photo" type="file" accept="image/*" />
 
-        <button class="btn-primary" type="submit">Publier la promotion</button>
-        <div id="promotion-msg" class="msg"></div>
-      </form>
+          <button class="btn-primary" type="submit" id="promotion-submit">Publier la promotion</button>
+          <button class="btn-cancel" type="button" id="promotion-cancel" hidden>Annuler la modification</button>
+          <div id="promotion-msg" class="msg"></div>
+        </form>
+      </div>
+
+      <h2>Promotions publiées</h2>
+      <div id="promotion-list"></div>
     </div>
   </div>
 
@@ -154,6 +179,8 @@ async function refreshSession() {
     loginView.hidden = true;
     appView.hidden = false;
     who.textContent = 'Connectée en tant que ' + data.email;
+    offreCollection.load();
+    promotionCollection.load();
   } else {
     loginView.hidden = false;
     appView.hidden = true;
@@ -196,34 +223,132 @@ document.querySelectorAll('.tab').forEach((tab) => {
   });
 });
 
-async function submitForm(formId, endpoint, msgId) {
-  const form = document.getElementById(formId);
-  const msg = document.getElementById(msgId);
+function formatDateFr(dateStr) {
+  const d = new Date(dateStr);
+  if (isNaN(d)) return dateStr;
+  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function createCollection(config) {
+  const form = document.getElementById(config.formId);
+  const msg = document.getElementById(config.msgId);
+  const submitBtn = document.getElementById(config.submitId);
+  const cancelBtn = document.getElementById(config.cancelId);
+  const editingBanner = document.getElementById(config.bannerId);
+  const listEl = document.getElementById(config.listId);
+  let editingIndex = null;
+  let items = [];
+
+  function enterEditMode(index) {
+    editingIndex = index;
+    const item = items[index];
+    form.reset();
+    config.fields.forEach((f) => {
+      const el = form.elements[f];
+      if (el) el.value = item[f] || '';
+    });
+    submitBtn.textContent = config.editLabel;
+    cancelBtn.hidden = false;
+    editingBanner.style.display = 'block';
+    window.scrollTo({ top: form.getBoundingClientRect().top + window.scrollY - 20, behavior: 'smooth' });
+  }
+
+  function exitEditMode() {
+    editingIndex = null;
+    form.reset();
+    submitBtn.textContent = config.createLabel;
+    cancelBtn.hidden = true;
+    editingBanner.style.display = 'none';
+  }
+
+  cancelBtn.addEventListener('click', exitEditMode);
+
+  function render() {
+    listEl.innerHTML = '';
+    if (!items.length) {
+      listEl.innerHTML = '<p class="list-empty">Rien publié pour l\'instant.</p>';
+      return;
+    }
+    items.forEach((item, index) => {
+      const el = document.createElement('div');
+      el.className = 'item-card';
+      el.innerHTML = `
+        <div class="item-title">${item.title}</div>
+        <div class="item-meta">${config.summary(item)}</div>
+        <div class="item-actions">
+          <button type="button" class="edit-btn">Modifier</button>
+          <button type="button" class="delete-btn">Supprimer</button>
+        </div>`;
+      el.querySelector('.edit-btn').addEventListener('click', () => enterEditMode(index));
+      el.querySelector('.delete-btn').addEventListener('click', () => remove(index, item.title));
+      listEl.appendChild(el);
+    });
+  }
+
+  async function load() {
+    try {
+      const res = await fetch(config.endpoint, { credentials: 'same-origin' });
+      const data = await res.json();
+      if (!res.ok) return;
+      items = data.items || [];
+      render();
+    } catch (err) {
+      // silencieux : la liste reste juste non rafraichie
+    }
+  }
+
+  async function remove(index, title) {
+    if (!window.confirm(`Supprimer "${title}" ? Cette action est definitive.`)) return;
+    try {
+      const res = await fetch(`${config.endpoint}/${index}`, { method: 'DELETE', credentials: 'same-origin' });
+      const data = await res.json();
+      if (!res.ok) { showMsg(msg, data.error || 'Échec de la suppression.', false); return; }
+      showMsg(msg, 'Supprimé.', true);
+      if (editingIndex === index) exitEditMode();
+      await load();
+    } catch (err) {
+      showMsg(msg, 'Erreur réseau, réessaie.', false);
+    }
+  }
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const btn = form.querySelector('button[type="submit"]');
-    btn.disabled = true;
+    submitBtn.disabled = true;
     msg.className = 'msg';
     try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        credentials: 'same-origin',
-        body: new FormData(form),
-      });
+      const url = editingIndex === null ? config.endpoint : `${config.endpoint}/${editingIndex}`;
+      const method = editingIndex === null ? 'POST' : 'PUT';
+      const res = await fetch(url, { method, credentials: 'same-origin', body: new FormData(form) });
       const data = await res.json();
-      if (!res.ok) { showMsg(msg, data.error || 'Échec de la publication.', false); return; }
-      showMsg(msg, 'Publié avec succès ! Ça peut prendre une minute à apparaître sur le site.', true);
-      form.reset();
+      if (!res.ok) { showMsg(msg, data.error || 'Échec de l\'enregistrement.', false); return; }
+      showMsg(msg, 'Enregistré avec succès ! Ça peut prendre une minute à apparaître sur le site.', true);
+      exitEditMode();
+      await load();
     } catch (err) {
       showMsg(msg, 'Erreur réseau, réessaie.', false);
     } finally {
-      btn.disabled = false;
+      submitBtn.disabled = false;
     }
   });
+
+  return { load };
 }
 
-submitForm('offre-form', '/api/offres', 'offre-msg');
-submitForm('promotion-form', '/api/promotions', 'promotion-msg');
+const offreCollection = createCollection({
+  formId: 'offre-form', msgId: 'offre-msg', submitId: 'offre-submit', cancelId: 'offre-cancel',
+  bannerId: 'offre-editing-banner', listId: 'offre-list', endpoint: '/api/offres',
+  fields: ['title', 'type', 'sector', 'location', 'description', 'dateLimite'],
+  createLabel: "Publier l'offre", editLabel: 'Enregistrer les modifications',
+  summary: (item) => [item.type, item.location, item.dateLimite ? 'jusqu\'au ' + formatDateFr(item.dateLimite) : null].filter(Boolean).join(' · '),
+});
+
+const promotionCollection = createCollection({
+  formId: 'promotion-form', msgId: 'promotion-msg', submitId: 'promotion-submit', cancelId: 'promotion-cancel',
+  bannerId: 'promotion-editing-banner', listId: 'promotion-list', endpoint: '/api/promotions',
+  fields: ['title', 'sector', 'description', 'validUntil'],
+  createLabel: 'Publier la promotion', editLabel: 'Enregistrer les modifications',
+  summary: (item) => [item.validUntil ? 'jusqu\'au ' + formatDateFr(item.validUntil) : null].filter(Boolean).join(' · '),
+});
 
 refreshSession();
 </script>
