@@ -24,7 +24,8 @@
       "description": "Recherche bénévole motivé pour animer des activités ludiques et éducatives auprès des enfants les week-ends.",
       "location": "Lomé",
       "sector": "garderie",
-      "dateLimite": "2026-09-06"
+      "dateLimite": "2026-09-06",
+      "photo": "/images/uploads/garderie-2.jpg"
     }
   ]
 }
