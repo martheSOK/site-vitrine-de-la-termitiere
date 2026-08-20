@@ -5,6 +5,14 @@ on:
     branches:
       - docker-deployment
 
+# Une seule execution du deploiement a la fois : si plusieurs publications
+# (offres/promotions) arrivent d'affilee, les workflows suivants attendent
+# en file au lieu de deployer en parallele sur le VPS (ce qui corrompait
+# deploy/.env et faisait tomber tous les services en meme temps).
+concurrency:
+  group: deploy-vitrine
+  cancel-in-progress: false
+
 permissions:
   contents: read
   packages: write
