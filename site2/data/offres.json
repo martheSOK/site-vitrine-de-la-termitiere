@@ -1,6 +1,15 @@
 {
   "items": [
     {
+      "title": "\tÉleveur / Technicien agro-pastoral",
+      "type": "CDD",
+      "location": "Agbelouvé.",
+      "sector": "agro",
+      "description": "Recherche technicien pour le suivi du cheptel et des cultures. Connaissances en élevage et agriculture souhaitées.",
+      "dateLimite": "2026-08-20",
+      "photo": "/images/uploads/1787224513143-agri1.jpeg"
+    },
+    {
       "title": "Éleveur / Technicien agro-pastoral",
       "type": "CDI",
       "location": "Agbelouvé.",
@@ -15,15 +24,8 @@
       "description": "Recherche bénévole motivé pour animer des activités ludiques et éducatives auprès des enfants les week-ends.",
       "location": "Lomé",
       "sector": "garderie",
-      "dateLimite": "2026-09-06"
-    },
-    {
-      "title": "Chauffeur-livreur",
-      "description": "Livraison de marchandises sur Lomé et environs. Permis B obligatoire, expérience en conduite professionnelle appréciée.",
-      "type": "CDD",
-      "sector": "logistique",
-      "location": "Lomé",
-      "dateLimite": "2026-10-10"
+      "dateLimite": "2026-09-06",
+      "photo": "/images/uploads/garderie-2.jpg"
     }
   ]
 }
