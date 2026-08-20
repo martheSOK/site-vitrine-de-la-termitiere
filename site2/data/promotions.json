@@ -1,6 +1,11 @@
 {
   "items": [
     {
+      "title": "Transport groupé à prix réduit",
+      "sector": "logistique",
+      "validUntil": "2026-08-20"
+    },
+    {
       "title": "Promotion rentrée La Garderie",
       "sector": "garderie",
       "validUntil": "2026-09-06",
