@@ -1,6 +1,10 @@
 {
   "items": [
     {
+      "title": "TEST CRUD - a supprimer",
+      "type": "CDI"
+    },
+    {
       "title": "\tÉleveur / Technicien agro-pastoral",
       "type": "CDD",
       "location": "Agbelouvé.",
