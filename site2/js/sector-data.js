@@ -134,7 +134,7 @@ const SECTORS = {
     name: "La Garderie",
     tagline: "Accueil des tout-petits",
     letter: "C",
-    manager: { name: "PAPOUTI Chantal", title: "Responsable", photo: "" },
+    manager: { name: "PAPOUTI Chantal", title: "Responsable", photo: "images/equipe/garderie-responsable.jpg" },
     cardText: "Un cadre sécurisé et épanouissant pour les enfants de 6 mois à 5 ans, cantine incluse.",
     mission: "Notre mission est d'offrir un cadre sécurisé et épanouissant pour l'éveil des enfants de 6 mois à 5 ans, tout en offrant aux parents actifs une tranquillité d'esprit totale grâce à nos formules flexibles avec cantine incluse.",
     services: [
