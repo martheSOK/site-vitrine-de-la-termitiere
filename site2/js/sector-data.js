@@ -13,6 +13,7 @@ const SECTORS = {
     name: "Maxi Gym",
     tagline: "Sport & santé",
     letter: "A",
+    manager: { name: "MASSINA INO", title: "Responsable", photo: "" },
     cardText: "Coaching, rééducation et remise en forme, avec ou sans accompagnement personnalisé.",
     mission: "Notre mission est d'accompagner chaque individu, quel que soit son profil, vers un mieux-être physique et durable. À travers un suivi personnalisé par des coachs professionnels ou en accès libre, nous combinons sport, remise en forme et rééducation pour vous aider à atteindre vos objectifs de santé et de performance.",
     services: [
@@ -133,6 +134,7 @@ const SECTORS = {
     name: "La Garderie",
     tagline: "Accueil des tout-petits",
     letter: "C",
+    manager: { name: "PAPOUTI Chantal", title: "Responsable", photo: "" },
     cardText: "Un cadre sécurisé et épanouissant pour les enfants de 6 mois à 5 ans, cantine incluse.",
     mission: "Notre mission est d'offrir un cadre sécurisé et épanouissant pour l'éveil des enfants de 6 mois à 5 ans, tout en offrant aux parents actifs une tranquillité d'esprit totale grâce à nos formules flexibles avec cantine incluse.",
     services: [
@@ -224,6 +226,7 @@ const SECTORS = {
     name: "Maxi Bâtiment",
     tagline: "BTP",
     letter: "E",
+    manager: { name: "Tossa Anani", title: "Responsable", photo: "" },
     cardText: "Architecture, génie civil et topographie, du gros œuvre aux finitions.",
     mission: "Promouvoir la construction d'édifices de qualité, durables et historiques. Nous concevons avec précision et bâtissons avec rigueur : notre expertise en génie civil et notre suivi de chantier millimétré garantissent la réussite de vos structures et extensions complexes, dans le respect absolu de vos délais et budgets.",
     services: [
@@ -267,6 +270,7 @@ const SECTORS = {
     name: "Maxi Logistique",
     tagline: "Prestations événementielles",
     letter: "F",
+    manager: { name: "Dongnima Bawi", title: "Responsable", photo: "" },
     cardText: "Installation de tente et espace VIP, décoration, tables et chaises, gazon, sono et animation pour vos événements.",
     comingSoon: false,
     mission: "Maxi Logistique prend en charge l'organisation matérielle de vos événements, de l'installation à l'animation : tentes et espace VIP, décoration, mobilier, gazon synthétique et sonorisation, pour un rendu clé en main à Kara, Sokodé et Lomé.",
@@ -303,6 +307,7 @@ const SECTORS = {
     name: "La Foncière",
     tagline: "Sécurisation foncière",
     letter: "G",
+    manager: { name: "tchakondo Abdoul", title: "Responsable", photo: "" },
     cardText: "Sécurisation et suivi de vos dossiers de terrain au Togo, de l'achat à l'immatriculation, en toute transparence.",
     comingSoon: false,
     mission: "L'achat d'un terrain peut cacher un risque : limites inexistantes, périmètre non défini, géolocalisation absente. La Foncière apprécie votre dossier avant tout engagement et refuse les missions à risque plutôt que d'exposer le client : du terrain coutumier au titre foncier signé, nous prenons votre dossier en main, étape par étape, en toute transparence.",
@@ -360,6 +365,7 @@ const SECTORS = {
     name: "Maxi Cosmétique",
     tagline: "Beauté & cosmétiques",
     letter: "H",
+    manager: { name: "Maman Richalatou", title: "Responsable", photo: "" },
     cardText: "Produits de beauté et de soin pour hommes, femmes et enfants, du milieu de gamme au haut de gamme, avec conseil et livraison.",
     comingSoon: false,
     mission: "Maxi Cosmétique propose des produits de beauté et de soin pour hommes, femmes et enfants : marques européennes, américaines et locales, dans des gammes accessibles, moyennes et haut de gamme. Une marque propre à La Termitière est en préparation. Conseil beauté et service après-vente accompagnent chaque achat, en boutique ou en livraison.",
