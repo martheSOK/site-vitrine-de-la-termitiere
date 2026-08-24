@@ -720,30 +720,29 @@ table.price-table tr:last-child td{ border-bottom:none; }
   padding:28px 22px; text-align:center; box-shadow:var(--shadow-sm);
 }
 .leader-section {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 40px;
-  max-width: 860px;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  max-width: 800px;
   margin: 40px auto 0;
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-top: 4px solid var(--accent, var(--red));
   border-radius: var(--radius-lg);
-  padding: 40px;
-  box-shadow: var(--shadow-lg);
-  align-items: center;
+  padding: 34px 40px;
+  box-shadow: var(--shadow-sm);
   position: relative;
   transition: transform .3s ease, box-shadow .3s ease;
 }
 .leader-section:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-lg), 0 20px 38px rgba(35,31,32,.08);
+  box-shadow: var(--shadow-md);
 }
 .leader-photo-wrap {
+  flex: none;
   position: relative;
-  width: 100%;
-  aspect-ratio: 1/1;
-  border-radius: var(--radius-md);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
   overflow: hidden;
   box-shadow: var(--shadow-md);
   border: 3px solid var(--accent, var(--red));
@@ -754,21 +753,6 @@ table.price-table tr:last-child td{ border-bottom:none; }
   height: 100%;
   object-fit: cover;
   object-position: center 15%;
-}
-.leader-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: var(--accent, var(--red));
-  color: #fff;
-  font-family: var(--font-display);
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 4px 12px;
-  border-radius: 20px;
-  box-shadow: var(--shadow-sm);
 }
 .leader-info {
   display: flex;
@@ -782,11 +766,10 @@ table.price-table tr:last-child td{ border-bottom:none; }
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--accent, var(--red));
-  margin-bottom: 4px;
 }
 .leader-name {
-  font-size: 1.6rem;
-  margin: 0 0 14px;
+  font-size: 1.45rem;
+  margin: 0 0 10px;
   font-weight: 800;
   color: var(--ink);
   letter-spacing: -0.01em;
@@ -794,45 +777,46 @@ table.price-table tr:last-child td{ border-bottom:none; }
 .leader-quote {
   font-family: var(--font-body);
   font-style: italic;
-  font-size: 0.96rem;
+  font-size: 0.94rem;
   color: var(--text-main);
-  line-height: 1.55;
-  margin: 0 0 16px;
-  padding-left: 16px;
+  line-height: 1.5;
+  margin: 0 0 12px;
+  padding-left: 14px;
   border-left: 3px solid var(--accent, var(--red));
 }
 .leader-divider {
   height: 1px;
   background: var(--line);
-  margin: 0 0 16px;
+  margin: 0 0 12px;
 }
 .leader-bio {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.55;
   margin: 0;
 }
 @media (max-width: 768px) {
   .leader-section {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    padding: 30px 24px;
+    flex-direction: column;
     text-align: center;
+    padding: 30px 24px;
+    gap: 24px;
   }
   .leader-photo-wrap {
-    max-width: 220px;
-    margin: 0 auto;
+    width: 120px;
+    height: 120px;
   }
   .leader-info {
     text-align: center;
+    align-items: center;
   }
   .leader-quote {
     border-left: none;
     padding-left: 0;
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
-    padding: 12px 0;
-    margin-bottom: 12px;
+    padding: 10px 0;
+    margin-bottom: 10px;
   }
 }
 .team-member-avatar{
