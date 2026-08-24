@@ -1,6 +1,12 @@
 {
   "items": [
     {
+      "title": "TEST_PROMO",
+      "sector": "sport",
+      "description": "20% de réduction sur tout abonnement mensuel du 28 août au 1er septembre dans le cadre de la journée porte ouverte de la salle ",
+      "validUntil": "2026-09-02"
+    },
+    {
       "title": "Promotion rentrée La Garderie",
       "sector": "garderie",
       "validUntil": "2026-09-06",
