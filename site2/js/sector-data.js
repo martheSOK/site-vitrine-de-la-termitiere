@@ -271,7 +271,7 @@ const SECTORS = {
     name: "Maxi Logistique",
     tagline: "Prestations événementielles",
     letter: "F",
-    manager: { name: "Mme KPENIATCHE Moudiatou", title: "Responsable", photo: "" },
+    manager: { name: "KPENIATCHE Moudiatou", title: "Responsable", photo: "" },
     cardText: "Installation de tente et espace VIP, décoration, tables et chaises, gazon, sono et animation pour vos événements.",
     comingSoon: false,
     mission: "Maxi Logistique prend en charge l'organisation matérielle de vos événements, de l'installation à l'animation : tentes et espace VIP, décoration, mobilier, gazon synthétique et sonorisation, pour un rendu clé en main à Kara, Sokodé et Lomé.",
