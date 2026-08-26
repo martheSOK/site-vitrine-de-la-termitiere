@@ -13,7 +13,7 @@ const SECTORS = {
     name: "Maxi Gym",
     tagline: "Sport & santé",
     letter: "A",
-    manager: { name: "MASSINA INO", title: "Responsable", photo: "" },
+    manager: { name: "MASSINA INO", title: "Responsable", photo: "images/equipe/responsable Maxi Gym.png" },
     cardText: "Coaching, rééducation et remise en forme, avec ou sans accompagnement personnalisé.",
     mission: "Notre mission est d'accompagner chaque individu, quel que soit son profil, vers un mieux-être physique et durable. À travers un suivi personnalisé par des coachs professionnels ou en accès libre, nous combinons sport, remise en forme et rééducation pour vous aider à atteindre vos objectifs de santé et de performance.",
     services: [
@@ -68,7 +68,7 @@ const SECTORS = {
     name: "La Briqueterie",
     tagline: "Matériaux de construction",
     letter: "B",
-    manager: { name: "Malam Rassoulou", title: "DS (Directeur Superviseur) et Responsable", photo: "images/equipe/briqueterie-responsable.jpg" },
+    manager: { name: "Malam Rassoulou", title: "DS (Directeur Superviseur) et Responsable", photo: "images/equipe/image responsable briqueterie.png" },
     cardText: "Production de briques et location de matériel de chantier, transport inclus sur demande.",
     mission: "Acteur clé de la construction, notre secteur Briqueterie a pour mission de fournir des matériaux de haute qualité pour concrétiser tous vos projets immobiliers. De la production de briques robustes à la location de matériel de chantier professionnel, nous accompagnons professionnels et particuliers avec des solutions clé en main, transport inclus.",
     services: [
@@ -134,7 +134,7 @@ const SECTORS = {
     name: "La Garderie",
     tagline: "Accueil des tout-petits",
     letter: "C",
-    manager: { name: "PAPOUTI Chantal", title: "Responsable", photo: "images/equipe/garderie-responsable.jpg" },
+    manager: { name: "PAPOUTI Chantal", title: "Responsable", photo: "images/equipe/image educatrice.png" },
     cardText: "Un cadre sécurisé et épanouissant pour les enfants de 6 mois à 5 ans, cantine incluse.",
     mission: "Notre mission est d'offrir un cadre sécurisé et épanouissant pour l'éveil des enfants de 6 mois à 5 ans, tout en offrant aux parents actifs une tranquillité d'esprit totale grâce à nos formules flexibles avec cantine incluse.",
     services: [
