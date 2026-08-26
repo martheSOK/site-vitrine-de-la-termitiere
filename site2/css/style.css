@@ -827,7 +827,10 @@ table.price-table tr:last-child td{ border-bottom:none; }
 .team-member-avatar--photo{ width:120px; height:120px; padding:0; overflow:hidden; }
 .team-member-avatar--photo img{ width:100%; height:100%; max-width:none; max-height:none; object-fit:cover; }
 .team-member-avatar--photo img[src*="garderie-responsable"],
-.team-member-avatar--photo img[src*="GE1.jpeg"] {
+.team-member-avatar--photo img[src*="GE1.jpeg"],
+.team-member-avatar--photo img[src*="responsable_maxi_gym"],
+.team-member-avatar--photo img[src*="responsable_briqueterie"],
+.team-member-avatar--photo img[src*="image_educatrice"] {
   object-position: center 15%;
 }
 .team-member-avatar .letter-badge{
