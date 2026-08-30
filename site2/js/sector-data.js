@@ -15,7 +15,7 @@ const SECTORS = {
     letter: "A",
     manager: { name: "MASSINA INO", title: "Responsable", photo: "images/equipe/responsable_maxi_gym.png" },
     cardText: "Coaching, rééducation et remise en forme, avec ou sans accompagnement personnalisé.",
-    mission: "Notre mission est d'accompagner chaque individu, quel que soit son profil, vers un mieux-être physique et durable. À travers un suivi personnalisé par des coachs professionnels ou en accès libre, nous combinons sport, remise en forme et rééducation pour vous aider à atteindre vos objectifs de santé et de performance.",
+    mission: "Maxi Gym, la salle de sport de La Termitière à Lomé et à Kara, au Togo, a pour mission d'accompagner chaque individu, quel que soit son profil, vers un mieux-être physique et durable. À travers un suivi personnalisé par des coachs professionnels ou en accès libre, nous combinons sport, remise en forme et rééducation pour vous aider à atteindre vos objectifs de santé et de performance.",
     services: [
       { title: "Accompagnement & rééducation sportive", text: "Prise en charge personnalisée par nos deux coachs pour les personnes en phase de rééducation, à la suite d'un accident, d'un incident physique, ou pour soulager des tensions musculaires spécifiques." },
       { title: "Coaching & transformation physique", text: "Séances encadrées par nos coachs professionnels pour atteindre des objectifs esthétiques ou de performance (ventre plat, renforcement musculaire, tonification globale)." },
@@ -70,7 +70,7 @@ const SECTORS = {
     letter: "B",
     manager: { name: "Malam Rassoulou", title: "DS (Directeur Superviseur) et Responsable", photo: "images/equipe/responsable_briqueterie.png" },
     cardText: "Production de briques et location de matériel de chantier, transport inclus sur demande.",
-    mission: "Acteur clé de la construction, notre secteur Briqueterie a pour mission de fournir des matériaux de haute qualité pour concrétiser tous vos projets immobiliers. De la production de briques robustes à la location de matériel de chantier professionnel, nous accompagnons professionnels et particuliers avec des solutions clé en main, transport inclus.",
+    mission: "La Briqueterie de La Termitière, à Lomé et à Kara, au Togo, acteur clé du BTP et de la construction, a pour mission de fournir des matériaux de haute qualité pour concrétiser tous vos projets immobiliers. De la production de briques robustes à la location de matériel de chantier professionnel, nous accompagnons professionnels et particuliers avec des solutions clé en main, transport inclus.",
     services: [
       { title: "Production et vente de briques", text: "Fabrication et fourniture d'une large gamme de briques : pleines (murs porteurs, fondations), creuses (cloisons légères, isolation) et hourdis (dalles, planchers), dimensions 10, 12 et 15." },
       { title: "Service logistique & transport sur chantier", text: "Deux options d'achat : retrait direct à l'usine, ou livraison sécurisée jusqu'à votre chantier." },
@@ -136,7 +136,7 @@ const SECTORS = {
     letter: "C",
     manager: { name: "PAPOUTI Chantal", title: "Responsable", photo: "images/equipe/image_educatrice.png" },
     cardText: "Un cadre sécurisé et épanouissant pour les enfants de 6 mois à 5 ans, cantine incluse.",
-    mission: "Notre mission est d'offrir un cadre sécurisé et épanouissant pour l'éveil des enfants de 6 mois à 5 ans, tout en offrant aux parents actifs une tranquillité d'esprit totale grâce à nos formules flexibles avec cantine incluse.",
+    mission: "La Garderie de La Termitière, à Lomé, au Togo, a pour mission d'offrir un cadre sécurisé et épanouissant pour l'éveil des enfants de 6 mois à 5 ans, tout en offrant aux parents actifs une tranquillité d'esprit totale grâce à nos formules flexibles avec cantine incluse.",
     services: [
       { title: "Garde par inscription (long terme)", text: "Accompagnement continu à l'année avec un suivi régulier de l'enfant, selon trois tranches d'âge (6 mois à 1 an, 1 an à 3 ans, 3 ans à 5 ans)." },
       { title: "Garde sans inscription (occasionnelle)", text: "Accueil journalier à la carte, idéal pour un besoin ponctuel ou imprévu." },
@@ -187,7 +187,7 @@ const SECTORS = {
     letter: "D",
     manager: { name: "EDAH Josué ", title: "Responsable", photo: "" },
     cardText: "Élevage de précision et productions agricoles, en autosuffisance alimentaire totale.",
-    mission: "Assurer une production agropastorale autonome et performante. Maxi Agro se donne pour mission d'élever et de fournir au marché des animaux de races sélectionnées et adaptées aux préférences de nos clients. En nous appuyant sur une agriculture interne dédiée à l'alimentation de notre cheptel, nous visons une autosuffisance totale pour garantir la qualité constante de nos élevages, sans dépendance extérieure.",
+    mission: "Maxi Agro, la ferme agro-pastorale de La Termitière située à Agbélouvé (préfecture du Zio, Togo), assure une production agropastorale autonome et performante. Maxi Agro se donne pour mission d'élever et de fournir au marché des animaux de races sélectionnées et adaptées aux préférences de nos clients. En nous appuyant sur une agriculture interne dédiée à l'alimentation de notre cheptel, nous visons une autosuffisance totale pour garantir la qualité constante de nos élevages, sans dépendance extérieure.",
     services: [
       { title: "Volailles & œufs", text: "Élevage ciblé et vente de races performantes et recherchées (Goliath, Noiler, Isabrown, Leghorn, poulets de chair, canards, dindons, pigeons) et production d'œufs." },
       { title: "Élevage de ruminants", text: "Vente et approvisionnement en ovins/caprins (races Sahélienne, Djallonké, mouton de Vogan) ainsi qu'en bovins (vaches, taureaux, génisses)." },
@@ -229,7 +229,7 @@ const SECTORS = {
     letter: "E",
     manager: { name: "Tossa Anani", title: "Responsable", photo: "" },
     cardText: "Architecture, génie civil et topographie, du gros œuvre aux finitions.",
-    mission: "Promouvoir la construction d'édifices de qualité, durables et historiques. Nous concevons avec précision et bâtissons avec rigueur : notre expertise en génie civil et notre suivi de chantier millimétré garantissent la réussite de vos structures et extensions complexes, dans le respect absolu de vos délais et budgets.",
+    mission: "Maxi Bâtiment, le pôle BTP de La Termitière à Lomé, au Togo, promeut la construction d'édifices de qualité, durables et historiques. Nous concevons avec précision et bâtissons avec rigueur : notre expertise en génie civil et notre suivi de chantier millimétré garantissent la réussite de vos structures et extensions complexes, dans le respect absolu de vos délais et budgets.",
     services: [
       { title: "Architecture", text: "Conceptions, études, aménagements d'intérieur et d'espaces verts, élaboration budgétaire des projets de construction." },
       { title: "Gros œuvre & second œuvre", text: "Prise en charge complète de vos chantiers résidentiels, commerciaux et administratifs, jusqu'aux finitions sur mesure." },
@@ -274,7 +274,7 @@ const SECTORS = {
     manager: { name: "KPENIATCHE Moudiatou", title: "Responsable", photo: "images/equipe/responsable-logistique.png" },
     cardText: "Installation de tente et espace VIP, décoration, tables et chaises, gazon, sono et animation pour vos événements.",
     comingSoon: false,
-    mission: "Maxi Logistique prend en charge l'organisation matérielle de vos événements, de l'installation à l'animation : tentes et espace VIP, décoration, mobilier, gazon synthétique et sonorisation, pour un rendu clé en main à Kara, Sokodé et Lomé.",
+    mission: "Maxi Logistique, le pôle logistique et événementiel de La Termitière au Togo, prend en charge l'organisation matérielle de vos événements, de l'installation à l'animation : tentes et espace VIP, décoration, mobilier, gazon synthétique et sonorisation, pour un rendu clé en main à Kara, Sokodé et Lomé.",
     services: [
       { title: "Installation de tente & espace VIP", text: "Montage de tentes de réception et aménagement d'un espace VIP adapté à la taille de votre événement." },
       { title: "Décoration", text: "Décoration complète sur mesure (arches de ballons, nappage, fleurs) pour cérémonies, mariages et événements d'entreprise." },
@@ -311,7 +311,7 @@ const SECTORS = {
     manager: { name: "tchakondo Abdoul", title: "Responsable", photo: "" },
     cardText: "Sécurisation et suivi de vos dossiers de terrain au Togo, de l'achat à l'immatriculation, en toute transparence.",
     comingSoon: false,
-    mission: "L'achat d'un terrain peut cacher un risque : limites inexistantes, périmètre non défini, géolocalisation absente. La Foncière apprécie votre dossier avant tout engagement et refuse les missions à risque plutôt que d'exposer le client : du terrain coutumier au titre foncier signé, nous prenons votre dossier en main, étape par étape, en toute transparence.",
+    mission: "La Foncière, le service de sécurisation foncière de La Termitière à Lomé, au Togo, vous accompagne face à un risque fréquent lors de l'achat d'un terrain : limites inexistantes, périmètre non défini, géolocalisation absente. La Foncière apprécie votre dossier avant tout engagement et refuse les missions à risque plutôt que d'exposer le client : du terrain coutumier au titre foncier signé, nous prenons votre dossier en main, étape par étape, en toute transparence.",
     services: [
       { title: "Cession / Vente de terrain", text: "Terrain nu, terrain avec levé, ou terrain avec acte notarié." },
       { title: "Immatriculation (titre en cours)", text: "Levé, bornage, puis délivrance du titre." },
@@ -369,7 +369,7 @@ const SECTORS = {
     manager: { name: "Maman Richalatou", title: "Responsable", photo: "images/equipe/cometique/GE1.jpeg" },
     cardText: "Produits de beauté et de soin pour hommes, femmes et enfants, du milieu de gamme au haut de gamme, avec conseil et livraison.",
     comingSoon: false,
-    mission: "Maxi Cosmétique propose des produits de beauté et de soin pour hommes, femmes et enfants : marques européennes, américaines et locales, dans des gammes accessibles, moyennes et haut de gamme. Une marque propre à La Termitière est en préparation. Conseil beauté et service après-vente accompagnent chaque achat, en boutique ou en livraison.",
+    mission: "Maxi Cosmétique, la boutique cosmétique de La Termitière à Lomé, au Togo, propose des produits de beauté et de soin pour hommes, femmes et enfants : marques européennes, américaines et locales, dans des gammes accessibles, moyennes et haut de gamme. Une marque propre à La Termitière est en préparation. Conseil beauté et service après-vente accompagnent chaque achat, en boutique ou en livraison.",
     services: [
       { title: "Gammes accessible, moyenne et haut de gamme", text: "Un choix de produits adapté à tous les budgets, du plus accessible au plus luxueux." },
       { title: "Conseil beauté", text: "Une équipe qui vous oriente vers les produits adaptés à votre peau, vos cheveux ou vos besoins." },
