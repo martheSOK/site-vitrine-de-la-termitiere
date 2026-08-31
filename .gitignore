@@ -8,3 +8,4 @@ node_modules/
 .env
 .env.*
 !.env.example
+publish-proxy/server.js.backup
