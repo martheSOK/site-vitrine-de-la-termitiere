@@ -61,12 +61,12 @@ const SECTORS = {
     processPhoto: "images/watermarks/gym-inscription.jpg",
     procedure: [
       { title: "Inscription & fiche de santé", desc: "Remplissez notre fiche d'inscription et le questionnaire médical d'aptitude sportive à l'accueil." },
-      { title: "Choix de la formule", desc: "Sélectionnez l'abonnement qui vous correspond (mensuel, bihebdomadaire ou séance à l'unité, avec ou sans machines)." },
+      { title: "Choix de la formule", desc: "Sélectionnez l'abonnement qui vous correspond selon votre salle : mensuel ou de 2 semaines à Lomé, mensuel à Kara, ou séance à l'unité dans les deux villes." },
       { title: "Paiement & activation", desc: "Réglez vos frais par Mobile Money ou en espèces pour obtenir instantanément votre accès à la salle." },
       { title: "Bilan & entraînement", desc: "Réalisez un bilan de départ avec l'un de nos coachs et démarrez vos entraînements." },
     ],
     faq: [
-      { q: "Faut-il un abonnement pour s'entraîner à Maxi Gym ?", a: "Non, la formule « Pratique libre » permet de s'entraîner sans engagement, à la séance (1 500 F CFA avec machines, 1 000 F CFA sans) ou en abonnement mensuel ou de 2 semaines selon vos besoins." },
+      { q: "Faut-il un abonnement pour s'entraîner à Maxi Gym ?", a: "Non, la formule « Pratique libre » permet de s'entraîner sans engagement, à la séance (1 500 F CFA avec équipement, 1 000 F CFA sans, à Lomé comme à Kara). Un abonnement mensuel est aussi disponible dans les deux villes, avec en plus une formule de 2 semaines à Lomé. Voir le détail des tarifs par ville ci-dessus." },
       { q: "Un coach est-il obligatoire pour s'entraîner ?", a: "Non. Vous pouvez vous entraîner en autonomie, ou bénéficier d'un accompagnement personnalisé par l'un de nos coachs pour la rééducation ou la transformation physique." },
       { q: "Maxi Gym est-il uniquement à Lomé ?", a: "Non, Maxi Gym est présent à Agoè-Daliko (Lomé) et à Kara (EWAOU, en face du Foyer Jean 23)." },
     ],
