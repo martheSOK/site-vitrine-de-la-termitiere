@@ -287,7 +287,7 @@ function createCollection(config) {
 
   async function load() {
     try {
-      const res = await fetch(config.endpoint, { credentials: 'same-origin' });
+      const res = await fetch(config.listEndpoint, { credentials: 'same-origin' });
       const data = await res.json();
       if (!res.ok) return;
       items = data.items || [];
@@ -336,7 +336,7 @@ function createCollection(config) {
 
 const offreCollection = createCollection({
   formId: 'offre-form', msgId: 'offre-msg', submitId: 'offre-submit', cancelId: 'offre-cancel',
-  bannerId: 'offre-editing-banner', listId: 'offre-list', endpoint: '/api/offres',
+  bannerId: 'offre-editing-banner', listId: 'offre-list', endpoint: '/api/offres', listEndpoint: '/api/content/offres',
   fields: ['title', 'type', 'sector', 'location', 'description', 'dateLimite'],
   createLabel: "Publier l'offre", editLabel: 'Enregistrer les modifications',
   summary: (item) => [item.type, item.location, item.dateLimite ? 'jusqu\'au ' + formatDateFr(item.dateLimite) : null].filter(Boolean).join(' · '),
@@ -344,7 +344,7 @@ const offreCollection = createCollection({
 
 const promotionCollection = createCollection({
   formId: 'promotion-form', msgId: 'promotion-msg', submitId: 'promotion-submit', cancelId: 'promotion-cancel',
-  bannerId: 'promotion-editing-banner', listId: 'promotion-list', endpoint: '/api/promotions',
+  bannerId: 'promotion-editing-banner', listId: 'promotion-list', endpoint: '/api/promotions', listEndpoint: '/api/content/promotions',
   fields: ['title', 'sector', 'description', 'validUntil'],
   createLabel: 'Publier la promotion', editLabel: 'Enregistrer les modifications',
   summary: (item) => [item.validUntil ? 'jusqu\'au ' + formatDateFr(item.validUntil) : null].filter(Boolean).join(' · '),
