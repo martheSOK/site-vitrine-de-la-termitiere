@@ -335,6 +335,7 @@ const SECTORS = {
     horaires: null,
     localisation: null,
     photos: [],
+    hideMediaPlaceholder: true,
     photosDir: "images/e-foncier/photos/",
     heroPhoto: "images/e-foncier/photos/efoncier-terrain.jpg",
     homeHeroPhoto: "images/e-foncier/photos/efoncier-signature.jpg",

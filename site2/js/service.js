@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Médias
   const hasPhotos = s.photos && s.photos.length > 0;
-  if (hasPhotos) {
+  if (hasPhotos || s.hideMediaPlaceholder) {
     mainHtml += `<div class="media-placeholder" style="display:none;"></div>`; // no-op safeguard
   } else {
     mainHtml += `
