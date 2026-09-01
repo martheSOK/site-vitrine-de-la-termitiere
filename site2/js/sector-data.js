@@ -24,7 +24,7 @@ const SECTORS = {
     ],
     tables: [
       {
-        title: "Tarifs",
+        title: "Tarifs — Lomé",
         columns: ["Formule", "Durée", "Tarif"],
         rows: [
           ["Abonnement avec machine électronique", "1 mois", "15 000 F CFA"],
@@ -33,6 +33,16 @@ const SECTORS = {
           ["Abonnement sans machine électronique", "2 semaines", "5 000 F CFA"],
           ["Séance à l'unité avec machines", "1 séance", "1 500 F CFA"],
           ["Séance à l'unité sans machines", "1 séance", "1 000 F CFA"],
+        ],
+      },
+      {
+        title: "Tarifs — Kara",
+        columns: ["Formule", "Durée", "Tarif"],
+        rows: [
+          ["Abonnement avec tapis", "1 mois", "10 000 F CFA"],
+          ["Abonnement sans tapis", "1 mois", "7 000 F CFA"],
+          ["Séance à l'unité avec tapis", "1 séance", "1 500 F CFA"],
+          ["Séance à l'unité sans tapis", "1 séance", "1 000 F CFA"],
         ],
       },
     ],
