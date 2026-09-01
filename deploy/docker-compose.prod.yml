@@ -13,6 +13,26 @@ services:
 
     restart: unless-stopped
 
+    volumes:
+      # Contenu dynamique persistant
+      - termitiere-content:/content
+
+    command:
+      - /bin/sh
+      - -c
+      - |
+        set -e
+
+        # Les données dynamiques vivent dans le volume persistant.
+        rm -rf /usr/share/nginx/html/data
+        ln -s /content/data /usr/share/nginx/html/data
+
+        rm -rf /usr/share/nginx/html/images/uploads
+        mkdir -p /usr/share/nginx/html/images
+        ln -s /content/images/uploads /usr/share/nginx/html/images/uploads
+
+        exec nginx -g 'daemon off;'
+
     networks:
       - deploy_default
 
@@ -60,7 +80,8 @@ services:
 
 
   # ============================================================
-  # PUBLISH PROXY (offres / promotions, sans compte GitHub)
+  # PUBLISH PROXY
+  # Offres / promotions
   # ============================================================
 
   publish-proxy:
@@ -70,16 +91,31 @@ services:
 
     restart: unless-stopped
 
+    volumes:
+      # Même contenu persistant que la vitrine
+      - termitiere-content:/content
+
     environment:
       PORT: "8082"
-      GITHUB_TOKEN: "${PUBLISH_GITHUB_TOKEN}"
-      GITHUB_REPO: "${PUBLISH_GITHUB_REPO:-martheSOK/site-vitrine-de-la-termitiere}"
-      GITHUB_BRANCH: "${PUBLISH_GITHUB_BRANCH:-docker-deployment}"
+
       SESSION_SECRET: "${PUBLISH_SESSION_SECRET}"
       USERS_JSON: "${PUBLISH_USERS_JSON}"
 
+      # Racine du contenu persistant
+      CONTENT_DIR: "/content"
+
     networks:
       - deploy_default
+
+
+# ==============================================================
+# VOLUME PERSISTANT
+# ==============================================================
+
+volumes:
+  termitiere-content:
+    external: true
+    name: termitiere-content
 
 
 # ==============================================================
