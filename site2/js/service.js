@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
   sideHtml += `
     <div class="info-card cta">
       <p>Une question sur ce secteur ?</p>
-      <a href="index.html?secteur=${encodeURIComponent(s.name)}#contact" class="btn">Nous contacter</a>
+      <a href="contact.html?secteur=${encodeURIComponent(s.name)}" class="btn">Nous contacter</a>
     </div>`;
   sideHtml += renderOtherSectors(s.id, false);
 
@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return `
       <div class="cta-buttons">
         <a class="btn btn-whatsapp" href="https://wa.me/${waNumber}?text=${waInfoMsg}" target="_blank" rel="noopener noreferrer">${waIcon} WhatsApp</a>
-        <a class="btn btn-secondary" href="index.html?secteur=${encodeURIComponent(sector.name)}#contact">${mailIcon} Nous contacter</a>
+        <a class="btn btn-secondary" href="contact.html?secteur=${encodeURIComponent(sector.name)}">${mailIcon} Nous contacter</a>
       </div>`;
   }
 });

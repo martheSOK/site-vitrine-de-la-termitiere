@@ -709,6 +709,43 @@ table.price-table tr:last-child td{ border-bottom:none; }
 .value-card--accent .value-icon{ width:58px; height:58px; background:var(--accent); }
 .value-card--accent .value-icon svg{ width:26px; height:26px; }
 
+/* ---------- Bandes de valeurs pleine largeur (page A propos) ---------- */
+.value-bands{ display:flex; flex-direction:column; }
+.value-band{
+  position:relative; overflow:hidden;
+  display:flex; align-items:center; gap:24px;
+  padding:30px max(24px, calc((100% - 1120px) / 2 + 24px));
+}
+.value-band::before{
+  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(135deg, currentColor 25%, transparent 25%),
+    linear-gradient(225deg, currentColor 25%, transparent 25%);
+  background-position: 0 0, 0 0;
+  background-size: 120px 120px;
+  opacity:.05;
+}
+.value-band--light{ background:var(--bg-alt); color:var(--ink); }
+.value-band--accent{ background:var(--red); color:#fff; }
+.value-band--accent::before{ opacity:.08; }
+.value-band--dark{ background:var(--ink); color:#fff; }
+.value-band--dark::before{ opacity:.06; }
+.value-band-icon{
+  position:relative; z-index:1; flex:none;
+  width:56px; height:56px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(255,255,255,.16);
+}
+.value-band--light .value-band-icon{ background:rgba(189,60,47,.1); color:var(--red); }
+.value-band-icon svg{ width:26px; height:26px; }
+.value-band-text{ position:relative; z-index:1; }
+.value-band-text h4{ margin:0 0 4px; font-size:1.15rem; color:inherit; }
+.value-band-text p{ margin:0; font-size:.92rem; opacity:.85; }
+@media (max-width:640px){
+  .value-band{ padding:24px; gap:16px; }
+  .value-band-text h4{ font-size:1.02rem; }
+}
+
 .carrieres-values-grid{ grid-template-columns:repeat(4,1fr); }
 @media (max-width:980px){ .carrieres-values-grid{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:560px){ .carrieres-values-grid{ grid-template-columns:1fr; } }

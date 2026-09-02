@@ -50,13 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (secteur) {
       sectorInput.value = secteur;
       sectorField.style.display = '';
-      // Le champ ajouté décale la mise en page après le saut d'ancre initial du navigateur :
-      // on recale le défilement sur #contact une fois le champ affiché.
-      if (window.location.hash === '#contact') {
-        requestAnimationFrame(() => {
-          document.getElementById('contact').scrollIntoView();
-        });
-      }
     }
   }
 
