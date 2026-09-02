@@ -40,6 +40,11 @@
   .item-actions .edit-btn { color: var(--accent); }
   .item-actions .delete-btn { color: #b3261e; }
   [hidden] { display: none !important; }
+  .stats-grid { display: flex; gap: 14px; }
+  .stat-box { flex: 1; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+  .stat-value { font-size: 2rem; font-weight: 700; color: var(--accent); }
+  .stat-label { color: var(--muted); font-size: 0.85rem; margin-top: 4px; }
+  .stats-updated { color: var(--muted); font-size: 0.8rem; margin-top: 14px; text-align: center; }
 </style>
 </head>
 <body>
@@ -72,6 +77,7 @@
     <div class="tabs">
       <div class="tab active" data-tab="offre">Offre d'emploi</div>
       <div class="tab" data-tab="promotion">Promotion</div>
+      <div class="tab" data-tab="stats">Statistiques</div>
     </div>
 
     <div id="offre-card">
@@ -141,6 +147,26 @@
 
       <h2>Promotions publiées</h2>
       <div id="promotion-list"></div>
+    </div>
+
+    <div id="stats-card" hidden>
+      <div class="card">
+        <div id="stats-loading" class="list-empty">Chargement des statistiques…</div>
+        <div id="stats-content" hidden>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-value" id="stats-today">–</div>
+              <div class="stat-label">Visiteurs aujourd'hui</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="stats-month">–</div>
+              <div class="stat-label">Visiteurs ce mois-ci</div>
+            </div>
+          </div>
+          <div class="stats-updated" id="stats-updated"></div>
+        </div>
+        <div id="stats-msg" class="msg"></div>
+      </div>
     </div>
   </div>
 
@@ -217,11 +243,41 @@ document.querySelectorAll('.tab').forEach((tab) => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach((t) => t.classList.remove('active'));
     tab.classList.add('active');
-    const isOffre = tab.dataset.tab === 'offre';
-    document.getElementById('offre-card').hidden = !isOffre;
-    document.getElementById('promotion-card').hidden = isOffre;
+    const selected = tab.dataset.tab;
+    document.getElementById('offre-card').hidden = selected !== 'offre';
+    document.getElementById('promotion-card').hidden = selected !== 'promotion';
+    document.getElementById('stats-card').hidden = selected !== 'stats';
+    if (selected === 'stats') loadStats();
   });
 });
+
+let statsLoaded = false;
+
+async function loadStats() {
+  if (statsLoaded) return;
+  const loading = document.getElementById('stats-loading');
+  const content = document.getElementById('stats-content');
+  const msg = document.getElementById('stats-msg');
+  msg.className = 'msg';
+  try {
+    const res = await fetch('/api/stats', { credentials: 'same-origin' });
+    const data = await res.json();
+    if (!res.ok) {
+      loading.hidden = true;
+      showMsg(msg, data.error || 'Statistiques indisponibles pour le moment.', false);
+      return;
+    }
+    document.getElementById('stats-today').textContent = data.today;
+    document.getElementById('stats-month').textContent = data.month;
+    document.getElementById('stats-updated').textContent = 'Mis à jour : ' + new Date(data.updatedAt).toLocaleString('fr-FR');
+    loading.hidden = true;
+    content.hidden = false;
+    statsLoaded = true;
+  } catch (err) {
+    loading.hidden = true;
+    showMsg(msg, 'Erreur réseau, réessaie.', false);
+  }
+}
 
 function formatDateFr(dateStr) {
   const d = new Date(dateStr);

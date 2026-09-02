@@ -24,6 +24,12 @@
      ALLOWED_ORIGIN (defaut "https://latermitiere.com")
      CONTENT_CACHE_SECONDS (defaut 10)
      CONTENT_DIR (defaut "/content")
+   Variables optionnelles (statistiques de visite, onglet "Statistiques") :
+     GA_PROPERTY_ID                    identifiant de la propriete Google Analytics (ex: 551566365)
+     GOOGLE_SERVICE_ACCOUNT_KEY_BASE64 cle JSON du compte de service, encodee en base64
+     STATS_CACHE_SECONDS (defaut 300)
+   Si ces variables sont absentes, l'onglet Statistiques affiche simplement
+   "non configure" sans empecher le reste du service de fonctionner.
    ========================================================= */
 const express = require('express');
 const session = require('express-session');
@@ -32,6 +38,7 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { BetaAnalyticsDataClient } = require('@google-analytics/data');
 
 const {
   SESSION_SECRET,
@@ -41,6 +48,9 @@ const {
   ALLOWED_ORIGIN = 'https://latermitiere.com',
   CONTENT_CACHE_SECONDS = '10',
   CONTENT_DIR = '/content',
+  GA_PROPERTY_ID,
+  GOOGLE_SERVICE_ACCOUNT_KEY_BASE64,
+  STATS_CACHE_SECONDS = '300',
 } = process.env;
 
 if (!SESSION_SECRET || !USERS_JSON) {
@@ -149,6 +159,60 @@ function getCachedContent(type, filePath) {
 
 function invalidateCache(type) {
   cache[type] = null;
+}
+
+/* ---------- Statistiques de visite (Google Analytics, optionnel) ---------- */
+
+let analyticsClient = null;
+if (GA_PROPERTY_ID && GOOGLE_SERVICE_ACCOUNT_KEY_BASE64) {
+  try {
+    const credentials = JSON.parse(Buffer.from(GOOGLE_SERVICE_ACCOUNT_KEY_BASE64, 'base64').toString('utf8'));
+    analyticsClient = new BetaAnalyticsDataClient({ credentials });
+    console.log('Statistiques Google Analytics : configurées.');
+  } catch (err) {
+    console.error('GOOGLE_SERVICE_ACCOUNT_KEY_BASE64 invalide, statistiques désactivées :', err.message);
+  }
+} else {
+  console.log('Statistiques Google Analytics : non configurées (GA_PROPERTY_ID / GOOGLE_SERVICE_ACCOUNT_KEY_BASE64 absents).');
+}
+
+let statsCache = null;
+
+function statsCacheDurationMs() {
+  const seconds = Number(STATS_CACHE_SECONDS);
+  if (!Number.isFinite(seconds) || seconds < 0) return 300000;
+  return seconds * 1000;
+}
+
+function firstOfMonthISO() {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
+}
+
+async function fetchVisitorStats() {
+  const now = Date.now();
+  if (statsCache && now - statsCache.timestamp < statsCacheDurationMs()) {
+    return statsCache.data;
+  }
+  const [response] = await analyticsClient.runReport({
+    property: `properties/${GA_PROPERTY_ID}`,
+    dateRanges: [
+      { startDate: 'today', endDate: 'today' },
+      { startDate: firstOfMonthISO(), endDate: 'today' },
+    ],
+    metrics: [{ name: 'activeUsers' }],
+  });
+  let today = 0;
+  let month = 0;
+  (response.rows || []).forEach((row) => {
+    const rangeName = row.dimensionValues?.[0]?.value;
+    const value = Number(row.metricValues?.[0]?.value || 0);
+    if (rangeName === 'date_range_0') today = value;
+    if (rangeName === 'date_range_1') month = value;
+  });
+  const data = { today, month, updatedAt: new Date().toISOString() };
+  statsCache = { timestamp: now, data };
+  return data;
 }
 
 /* ---------- Utilitaires ---------- */
@@ -338,6 +402,20 @@ app.get('/api/content/images/:filename', (req, res) => {
   }
 });
 
+app.get('/api/stats', requireAuth, async (req, res) => {
+  if (!analyticsClient) {
+    res.status(503).json({ ok: false, error: "Statistiques non configurées." });
+    return;
+  }
+  try {
+    const stats = await fetchVisitorStats();
+    res.json({ ok: true, ...stats });
+  } catch (err) {
+    console.error('Erreur lecture statistiques Google Analytics:', err.message);
+    res.status(502).json({ ok: false, error: "Impossible de récupérer les statistiques pour le moment." });
+  }
+});
+
 /* ---------- Publication / modification / suppression ---------- */
 
 app.post('/api/:collection', requireAuth, requireCollection, upload.single('photo'), (req, res) => {
@@ -464,5 +542,6 @@ app.listen(PORT, () => {
   console.log(`Uploads : ${UPLOADS_DIRECTORY}`);
   console.log(`Origin autorisée : ${ALLOWED_ORIGIN}`);
   console.log(`Cache contenu : ${CONTENT_CACHE_SECONDS}s`);
+  console.log(`Statistiques Google Analytics : ${analyticsClient ? 'activées' : 'désactivées'}`);
   console.log('==========================================');
 });
