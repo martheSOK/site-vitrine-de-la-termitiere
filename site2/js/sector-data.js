@@ -39,7 +39,7 @@ const SECTORS = {
         title: "Tarifs — Kara",
         columns: ["Formule", "Durée", "Tarif"],
         rows: [
-          ["Abonnement Classique — avec tapis (sans machine électronique)", "1 mois", "10 000 F CFA"],
+          ["Abonnement avec tapis", "1 mois", "10 000 F CFA"],
           ["Abonnement sans tapis", "1 mois", "7 000 F CFA"],
           ["Séance à l'unité avec tapis", "1 séance", "1 500 F CFA"],
           ["Séance à l'unité sans tapis", "1 séance", "1 000 F CFA"],
