@@ -117,6 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (entry.isIntersecting) {
           entry.target.style.opacity = '1';
           entry.target.style.transform = 'translateY(0)';
+          // Une fois l'apparition terminee, on efface la transition (et son delai)
+          // pour laisser les regles CSS (ex: effet au survol) reprendre la main.
+          entry.target.addEventListener('transitionend', () => {
+            entry.target.style.transition = '';
+          }, { once: true });
           io.unobserve(entry.target);
         }
       });
@@ -124,7 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach(el => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(18px)';
-      el.style.transition = 'opacity .5s ease, transform .5s ease';
+      const delay = el.dataset.revealDelay ? `${el.dataset.revealDelay}s` : '0s';
+      el.style.transition = `opacity .5s ease ${delay}, transform .5s ease ${delay}`;
       io.observe(el);
     });
   }
