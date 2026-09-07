@@ -77,6 +77,8 @@
     <div class="tabs">
       <div class="tab active" data-tab="offre">Offre d'emploi</div>
       <div class="tab" data-tab="promotion">Promotion</div>
+      <div class="tab" data-tab="quiz">Quiz</div>
+      <div class="tab" data-tab="gagnants">Gagnants</div>
       <div class="tab" data-tab="stats">Statistiques</div>
     </div>
 
@@ -149,6 +151,47 @@
       <div id="promotion-list"></div>
     </div>
 
+    <div id="quiz-card" hidden>
+      <div class="card">
+        <div class="editing-banner" id="quiz-editing-banner">Modification d'une question existante.</div>
+        <form id="quiz-form">
+          <label for="q-title">Question *</label>
+          <input id="q-title" name="title" required />
+
+          <label for="q-optionA">Réponse A *</label>
+          <input id="q-optionA" name="optionA" required />
+          <label for="q-optionB">Réponse B *</label>
+          <input id="q-optionB" name="optionB" required />
+          <label for="q-optionC">Réponse C *</label>
+          <input id="q-optionC" name="optionC" required />
+          <label for="q-optionD">Réponse D *</label>
+          <input id="q-optionD" name="optionD" required />
+
+          <label for="q-correct">Bonne réponse *</label>
+          <select id="q-correct" name="correct" required>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+          </select>
+
+          <button class="btn-primary" type="submit" id="quiz-submit">Ajouter la question</button>
+          <button class="btn-cancel" type="button" id="quiz-cancel" hidden>Annuler la modification</button>
+          <div id="quiz-msg" class="msg"></div>
+        </form>
+      </div>
+
+      <h2>Questions du quiz</h2>
+      <div id="quiz-list"></div>
+    </div>
+
+    <div id="gagnants-card" hidden>
+      <div class="card">
+        <p class="sub" style="margin:0;">Personnes ayant gagné une récompense au quiz. Coche « réclamé » une fois le lot remis.</p>
+      </div>
+      <div id="gagnants-list"></div>
+    </div>
+
     <div id="stats-card" hidden>
       <div class="card">
         <div id="stats-loading" class="list-empty">Chargement des statistiques…</div>
@@ -207,6 +250,7 @@ async function refreshSession() {
     who.textContent = 'Connectée en tant que ' + data.email;
     offreCollection.load();
     promotionCollection.load();
+    quizCollection.load();
   } else {
     loginView.hidden = false;
     appView.hidden = true;
@@ -246,8 +290,11 @@ document.querySelectorAll('.tab').forEach((tab) => {
     const selected = tab.dataset.tab;
     document.getElementById('offre-card').hidden = selected !== 'offre';
     document.getElementById('promotion-card').hidden = selected !== 'promotion';
+    document.getElementById('quiz-card').hidden = selected !== 'quiz';
+    document.getElementById('gagnants-card').hidden = selected !== 'gagnants';
     document.getElementById('stats-card').hidden = selected !== 'stats';
     if (selected === 'stats') loadStats();
+    if (selected === 'gagnants') loadGagnants();
   });
 });
 
@@ -405,6 +452,63 @@ const promotionCollection = createCollection({
   createLabel: 'Publier la promotion', editLabel: 'Enregistrer les modifications',
   summary: (item) => [item.validUntil ? 'jusqu\'au ' + formatDateFr(item.validUntil) : null].filter(Boolean).join(' · '),
 });
+
+const quizCollection = createCollection({
+  formId: 'quiz-form', msgId: 'quiz-msg', submitId: 'quiz-submit', cancelId: 'quiz-cancel',
+  bannerId: 'quiz-editing-banner', listId: 'quiz-list', endpoint: '/api/quizquestions', listEndpoint: '/api/content/quizquestions',
+  fields: ['title', 'optionA', 'optionB', 'optionC', 'optionD', 'correct'],
+  createLabel: 'Ajouter la question', editLabel: 'Enregistrer les modifications',
+  summary: (item) => `A. ${item.optionA} · B. ${item.optionB} · C. ${item.optionC} · D. ${item.optionD} — bonne réponse : ${item.correct}`,
+});
+
+async function loadGagnants() {
+  // Toujours rechargee : les gagnants arrivent depuis une autre page (le quiz
+  // public), donc la liste peut changer pendant que cet onglet reste ouvert.
+  const listEl = document.getElementById('gagnants-list');
+  try {
+    const res = await fetch('/api/quiz-entries', { credentials: 'same-origin' });
+    const data = await res.json();
+    if (!res.ok) {
+      listEl.innerHTML = `<p class="list-empty">${data.error || 'Indisponible pour le moment.'}</p>`;
+      return;
+    }
+    const items = data.items || [];
+    if (!items.length) {
+      listEl.innerHTML = '<p class="list-empty">Personne n\'a encore gagné.</p>';
+      return;
+    }
+    listEl.innerHTML = '';
+    items.forEach((item, index) => {
+      const el = document.createElement('div');
+      el.className = 'item-card';
+      el.innerHTML = `
+        <div class="item-title">${item.name} — ${item.score}/${item.total}</div>
+        <div class="item-meta">${item.phone} · ${item.prizeLabel || 'Sans lot'} · ${formatDateFr(item.date)}</div>
+        <div class="item-actions">
+          <label style="display:flex; align-items:center; gap:6px; font-size:0.85rem; font-weight:600; color:var(--text);">
+            <input type="checkbox" ${item.claimed ? 'checked' : ''} style="width:auto;" />
+            Réclamé
+          </label>
+          <button type="button" class="delete-btn">Supprimer</button>
+        </div>`;
+      el.querySelector('input[type="checkbox"]').addEventListener('change', async (e) => {
+        await fetch(`/api/quiz-entries/${index}`, {
+          method: 'PUT', credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ claimed: e.target.checked }),
+        });
+      });
+      el.querySelector('.delete-btn').addEventListener('click', async () => {
+        if (!window.confirm(`Supprimer l'entrée de "${item.name}" ?`)) return;
+        await fetch(`/api/quiz-entries/${index}`, { method: 'DELETE', credentials: 'same-origin' });
+        await loadGagnants();
+      });
+      listEl.appendChild(el);
+    });
+  } catch (err) {
+    listEl.innerHTML = '<p class="list-empty">Erreur réseau, réessaie.</p>';
+  }
+}
 
 refreshSession();
 </script>
