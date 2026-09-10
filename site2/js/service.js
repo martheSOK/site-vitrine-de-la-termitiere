@@ -185,8 +185,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (s.localisation) {
     sideHtml += `<div class="info-card"><div class="lbl">${ICONS.pin} Localisation</div><p>${s.localisation}</p></div>`;
   }
-  if (s.whatsapp) {
-    sideHtml += `<div class="info-card"><div class="lbl">${ICONS.phone} Téléphone</div><p><a href="tel:+${s.whatsapp}">${formatPhone(s.whatsapp)}</a></p></div>`;
+  const callNumber = s.phone || s.whatsapp;
+  if (callNumber) {
+    sideHtml += `<div class="info-card"><div class="lbl">${ICONS.phone} Téléphone</div><p><a href="tel:+${callNumber}">${formatPhone(callNumber)}</a></p></div>`;
   }
   if (s.tiktok) {
     sideHtml += `<div class="info-card"><div class="lbl">${ICONS.tiktok} TikTok</div><p><a href="${s.tiktok}" target="_blank" rel="noopener noreferrer">${s.tiktokLabel || 'Voir sur TikTok'}</a></p></div>`;

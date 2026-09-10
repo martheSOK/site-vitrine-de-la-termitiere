@@ -55,7 +55,8 @@ const SECTORS = {
     heroPhoto: "images/salle-de-sport/photos/gym-accueil.jpg",
     videos: [],
     videosDir: "images/salle-de-sport/videos/",
-    whatsapp: "22896094949",
+    phone: "22896094949",
+    whatsapp: "22873185040",
     email: "latermitiere2021@gmail.com",
     processPhoto: "images/watermarks/gym-inscription.jpg",
     procedure: [
@@ -122,7 +123,8 @@ const SECTORS = {
     photosDir: "images/briqueterie/photos/",
     videos: ["briqueterie-1.mp4", "briqueterie-2.mp4"],
     videosDir: "images/briqueterie/videos/",
-    whatsapp: "22878850735",
+    phone: "22878850735",
+    whatsapp: "22873185040",
     email: "latermitiere2021@gmail.com",
     procedure: [
       { title: "Sélection des briques", desc: "Choisissez le type de briques (pleines, creuses, hourdis) et les dimensions requises pour votre chantier." },
@@ -214,7 +216,8 @@ const SECTORS = {
     heroPhoto: "images/maxi-agro/photos/agri1.jpeg",
     videos: [],
     videosDir: "images/maxi-agro/videos/",
-    whatsapp: "22878850736",
+    phone: "22878850736",
+    whatsapp: "22873185040",
     email: "latermitiere2021@gmail.com",
     processPhoto: "images/watermarks/agro-inscription.jpg",
     procedure: [
@@ -259,7 +262,8 @@ const SECTORS = {
     photosDir: "images/maxi-batiment/photos/",
     videos: [],
     videosDir: "images/maxi-batiment/videos/",
-    whatsapp: "22878850738",
+    phone: "22878850738",
+    whatsapp: "22873185040",
     email: "latermitiere2021@gmail.com",
     procedure: [
       { title: "Étude et brief client", desc: "Prenez rendez-vous avec nos équipes pour présenter vos plans de construction ou exprimer vos besoins en rénovation." },
@@ -302,7 +306,8 @@ const SECTORS = {
     heroPhoto: "images/maxi-logistique/photos/maxi-logistique-9.jpg",
     videos: ["maxi-logistique-1.mp4"],
     videosDir: "images/maxi-logistique/videos/",
-    whatsapp: "22878850737",
+    phone: "22878850737",
+    whatsapp: "22873185040",
     email: "latermitiere2021@gmail.com",
     faq: [
       { q: "Intervenez-vous seulement à Kara ?", a: "Non, nous intervenons à Kara, Sokodé et Lomé." },
@@ -352,7 +357,8 @@ const SECTORS = {
     homeHeroPhoto: "images/e-foncier/photos/efoncier-signature.jpg",
     videos: [],
     videosDir: "images/e-foncier/videos/",
-    whatsapp: "22896094949",
+    phone: "22896094949",
+    whatsapp: "22873185040",
     email: "latermitiere2021@gmail.com",
     procedure: [
       { title: "Collecte des pièces du cédant", desc: "Rassemblement de tous les documents disponibles sur le terrain et son propriétaire." },
