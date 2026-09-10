@@ -57,6 +57,10 @@ const SECTORS = {
     videosDir: "images/salle-de-sport/videos/",
     phone: "22896094949",
     whatsapp: "22873185040",
+    contacts: [
+      { label: "Lomé", phone: "22896094949", whatsapp: "22873185040" },
+      { label: "Kara", phone: "22896060909", whatsapp: "22896060909" },
+    ],
     email: "latermitiere2021@gmail.com",
     processPhoto: "images/watermarks/gym-inscription.jpg",
     procedure: [

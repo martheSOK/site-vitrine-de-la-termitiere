@@ -185,10 +185,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (s.localisation) {
     sideHtml += `<div class="info-card"><div class="lbl">${ICONS.pin} Localisation</div><p>${s.localisation}</p></div>`;
   }
-  const callNumber = s.phone || s.whatsapp;
-  if (callNumber) {
-    sideHtml += `<div class="info-card"><div class="lbl">${ICONS.phone} Téléphone</div><p><a href="tel:+${callNumber}">${formatPhone(callNumber)}</a></p></div>`;
-  }
+  const contactList = Array.isArray(s.contacts) && s.contacts.length
+    ? s.contacts
+    : ((s.phone || s.whatsapp) ? [{ label: '', phone: s.phone || s.whatsapp }] : []);
+  contactList.forEach(c => {
+    const num = c.phone || c.whatsapp;
+    if (!num) return;
+    const lbl = c.label ? ` — ${c.label}` : '';
+    sideHtml += `<div class="info-card"><div class="lbl">${ICONS.phone} Téléphone${lbl}</div><p><a href="tel:+${num}">${formatPhone(num)}</a></p></div>`;
+  });
   if (s.tiktok) {
     sideHtml += `<div class="info-card"><div class="lbl">${ICONS.tiktok} TikTok</div><p><a href="${s.tiktok}" target="_blank" rel="noopener noreferrer">${s.tiktokLabel || 'Voir sur TikTok'}</a></p></div>`;
   }
@@ -233,8 +238,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderCtaButtons(sector) {
-    if (!sector.whatsapp && !sector.email) return '';
-    const waNumber = (sector.whatsapp || '').replace(/\D/g, '');
+    const waContacts = (Array.isArray(sector.contacts) && sector.contacts.length
+      ? sector.contacts
+      : (sector.whatsapp ? [{ label: '', whatsapp: sector.whatsapp }] : [])
+    ).filter(c => c.whatsapp);
+    if (!waContacts.length && !sector.email) return '';
     const waInscMsg = encodeURIComponent(`Bonjour, je souhaite m'inscrire / bénéficier du service ${sector.name}.`);
     const waInfoMsg = encodeURIComponent(`Bonjour, je souhaite obtenir des informations complémentaires concernant ${sector.name}.`);
 
@@ -242,11 +250,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const mailIcon = '<svg viewBox="0 0 16 16" fill="currentColor" width="17" height="17"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114V5.383zm-.03 5.672-5.48-3.29-1.49 1.18a1 1 0 0 1-1.2 0L5.51 7.765 1.03 11.055a1 1 0 0 0 .97.945h12a1 1 0 0 0 .97-.945zM1.03 5.383v5.73l4.758-2.855L1.03 5.383z"/></svg>';
 
     // Bouton "S'inscrire / en bénéficier" masqué temporairement (inscription en ligne pas encore
-    // disponible au lancement). Décommenter la ligne ci-dessous une fois le module prêt :
-    // <a class="btn btn-primary" href="https://wa.me/${waNumber}?text=${waInscMsg}" target="_blank" rel="noopener noreferrer">S'inscrire / en bénéficier</a>
+    // disponible au lancement). Décommenter une fois le module prêt (voir waInscMsg).
+    void waInscMsg;
+    const waButtons = waContacts.map(c => {
+      const waNum = String(c.whatsapp).replace(/\D/g, '');
+      const lbl = c.label ? ` ${c.label}` : '';
+      return `<a class="btn btn-whatsapp" href="https://wa.me/${waNum}?text=${waInfoMsg}" target="_blank" rel="noopener noreferrer">${waIcon} WhatsApp${lbl}</a>`;
+    }).join('');
     return `
       <div class="cta-buttons">
-        <a class="btn btn-whatsapp" href="https://wa.me/${waNumber}?text=${waInfoMsg}" target="_blank" rel="noopener noreferrer">${waIcon} WhatsApp</a>
+        ${waButtons}
         <a class="btn btn-secondary" href="contact.html?secteur=${encodeURIComponent(sector.name)}">${mailIcon} Nous contacter</a>
       </div>`;
   }
