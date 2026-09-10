@@ -90,6 +90,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ---------- Sous-menus deroulants (nav) ---------- */
+  const navDropdowns = document.querySelectorAll('.nav-dropdown');
+  const closeAllDropdowns = () => {
+    navDropdowns.forEach(d => {
+      d.classList.remove('open');
+      d.querySelector('.nav-dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+    });
+  };
+  navDropdowns.forEach(dropdown => {
+    const toggle = dropdown.querySelector('.nav-dropdown-toggle');
+    if (!toggle) return;
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const willOpen = !dropdown.classList.contains('open');
+      closeAllDropdowns();
+      if (willOpen) {
+        dropdown.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+  document.addEventListener('click', closeAllDropdowns);
+  if (navToggle) {
+    navToggle.addEventListener('click', () => {
+      if (!mainNav.classList.contains('open')) closeAllDropdowns();
+    });
+  }
+
   /* ---------- Lien de nav actif au scroll (page d'accueil) ---------- */
   const sections = document.querySelectorAll('main section[id]');
   const navLinks = document.querySelectorAll('.main-nav a[href^="index.html#"], .main-nav a[href^="#"]');
